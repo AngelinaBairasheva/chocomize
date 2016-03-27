@@ -64,7 +64,6 @@ $(document).ready(function () {
             if (data != '') {
                 $("#goodsList").empty();
                 $("#goodsList").append(data);
-                updateCounter();
             } else {
                 $this.hide();
                 alert("ff");
@@ -73,9 +72,33 @@ $(document).ready(function () {
             $this.hide();
             alert("fail");
         });
-
-        function updateCounter() {
-        }
+    });
+    $(document).on("change","select#select_limit",function(){
+        var $this = $(this);
+        var $values=$this.val();
+        var page = $this.data('page');
+        $.ajax({
+            type: "POST",
+            url: "/catalog/setLimit",
+            data: {
+                id: $this.data('id'),
+                page: page,
+                limit: $values
+            }
+        }).done(function (data) {  // сюда приходит ответ при успехе
+            //console.log(data);
+            if (data != '') {
+                $("#goodsList").empty();
+                $("#goodsList").append(data);
+                alert("ok");
+            } else {
+                $this.hide();
+                alert("ff");
+            }
+        }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
+            $this.hide();
+            alert("fail");
+        });
     });
     $(document).on('click', '.js_addToCart', function () {
         //alert(3);

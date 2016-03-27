@@ -66,9 +66,27 @@ public class CatalogController extends BaseController {
      */
     @RequestMapping(value = "/showMore", method = RequestMethod.POST)
     public String showMoreGoods(Long id, Integer page, Integer limit, Model model) {
-        // Эта страшная проверка с page и limit только для теста, так как у нас пока нет реальных данных
         List<Goods> goods =  goodsService.getGoodsByPage(goodsService.getGoodsByCategorysId(id), page,
                 limit);
+        model.addAttribute("items", goods);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("pagesCount", goodsService.getPagesCount(goodsService.getGoodsByCategorysId(id), limit));
+        model.addAttribute("limit", limit);
+        model.addAttribute("catalog", categoriesService.getCategoryById(id));
+        return "catalog/ajaxGoods";
+    }
+    /**
+     * Установить размер количества отображаемых товаров на одной странице
+     *
+     * @param id    id категории
+     * @param page  номер страницы
+     * @param limit кол-во отображаемых товаров
+     */
+    @RequestMapping(value = "/setLimit", method = RequestMethod.POST)
+    public String setLimit(Long id, Integer page, Integer limit, Model model) {
+        List<Goods> goods =  goodsService.getGoodsByPage(goodsService.getGoodsByCategorysId(id), page,
+                limit);
+        System.out.println("**********************");
         model.addAttribute("items", goods);
         System.out.println("goods="+goods);
         model.addAttribute("currentPage", page);
@@ -76,8 +94,6 @@ public class CatalogController extends BaseController {
         model.addAttribute("pagesCount", goodsService.getPagesCount(goodsService.getGoodsByCategorysId(id), limit));
         model.addAttribute("limit", limit);
         model.addAttribute("catalog", categoriesService.getCategoryById(id));
-
-
         return "catalog/ajaxGoods";
     }
 }

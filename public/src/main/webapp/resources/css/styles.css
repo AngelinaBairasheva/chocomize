@@ -918,3 +918,6 @@ nav.icons li a.map {
 .active{
 	color: #6b423c;
 }
+.previous{
+	margin-top: 3px;
+}

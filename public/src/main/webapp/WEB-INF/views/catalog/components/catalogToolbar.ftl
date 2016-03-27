@@ -19,14 +19,15 @@
     <div class="pager">
         <div class="limiter visible-desktop">
             <label>Show</label>
-            <select>
-                <option value="" selected="selected">
+            <select id="select_limit" data-page="${currentPage}" data-id="${catalog.id}">
+                <#if limit=6><option selected value="6"><#else><option value="6"></#if>
+
                     6
                 </option>
-                <option value="">
+                <#if limit=9><option selected value="9"><#else><option value="9"></#if>
                     9
                 </option>
-                <option value="">
+                <#if limit=15><option selected value="15"><#else><option value="15"></#if>
                     15
                 </option>
             </select> per page
