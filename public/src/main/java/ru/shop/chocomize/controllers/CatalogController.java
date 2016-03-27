@@ -50,12 +50,34 @@ public class CatalogController extends BaseController {
         model.addAttribute("catalog", categoriesService.getCategoryById(id));
         model.addAttribute("brands",goodsService.getGoodsBrands());
         model.addAttribute("events",goodsService.getGoodsDatas());
-        model.addAttribute("page", page);
         model.addAttribute("min", goodsService.getMinPrice());
         model.addAttribute("max", goodsService.getMaxPrice());
-        model.addAttribute("currentPage", page);
-        model.addAttribute("pagesCount", goodsService.getPagesCount(goods, limit == null ? Constants.ITEMS_LIMIT : limit));
-        model.addAttribute("limit", limit);
+        model.addAttribute("currentPage", page == null ? 1 : page);
+        model.addAttribute("pagesCount", goodsService.getPagesCount(goodsService.getGoodsByCategorysId(id), limit == null ? Constants.ITEMS_LIMIT : limit));
+        model.addAttribute("limit", limit == null ? Constants.ITEMS_LIMIT : limit);
         return Constants.ATTR_CATALOG;
+    }
+    /**
+     * Показать еще товары на других страницах
+     *
+     * @param id    id категории
+     * @param page  номер страницы
+     * @param limit кол-во отображаемых товаров
+     */
+    @RequestMapping(value = "/showMore", method = RequestMethod.POST)
+    public String showMoreGoods(Long id, Integer page, Integer limit, Model model) {
+        // Эта страшная проверка с page и limit только для теста, так как у нас пока нет реальных данных
+        List<Goods> goods =  goodsService.getGoodsByPage(goodsService.getGoodsByCategorysId(id), page,
+                limit);
+        model.addAttribute("items", goods);
+        System.out.println("goods="+goods);
+        model.addAttribute("currentPage", page);
+        System.out.println("curPage="+page);
+        model.addAttribute("pagesCount", goodsService.getPagesCount(goodsService.getGoodsByCategorysId(id), limit));
+        model.addAttribute("limit", limit);
+        model.addAttribute("catalog", categoriesService.getCategoryById(id));
+
+
+        return "catalog/ajaxGoods";
     }
 }

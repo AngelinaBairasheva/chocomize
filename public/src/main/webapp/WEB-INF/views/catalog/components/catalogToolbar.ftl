@@ -1,89 +1,69 @@
-<div class="toolbar">
-    <div class="sorter">
-        <div class="sort-by toolbar-switch">
-            <div class="toolbar-title">
-                <label>Sort By</label>
-                <span class="current">Default</span>
-                <select onchange="setLocation(this.value)">
-                    <option selected="selected"
-                            value="http://www.chocomize.com/chocolate-shop/popular-chocolate-bars.html?dir=asc&amp;order=position">
-                        Position
-                    </option>
-                    <option value="http://www.chocomize.com/chocolate-shop/popular-chocolate-bars.html?dir=asc&amp;order=name">
-                        Name
-                    </option>
-                    <option value="http://www.chocomize.com/chocolate-shop/popular-chocolate-bars.html?dir=asc&amp;order=price">
-                        Price
-                    </option>
-                </select>
-            </div>
-            <div class="toolbar-dropdown">
-                <ul>
-                    <li class="selected"><a
-                            href="http://www.chocomize.com/chocolate-shop/popular-chocolate-bars.html?dir=asc&amp;order=position">Position</a>
-                    </li>
-                    <li>
-                        <a href="http://www.chocomize.com/chocolate-shop/popular-chocolate-bars.html?dir=asc&amp;order=name">Name</a>
-                    </li>
-                    <li>
-                        <a href="http://www.chocomize.com/chocolate-shop/popular-chocolate-bars.html?dir=asc&amp;order=price">Price</a>
-                    </li>
-                </ul>
-            </div>
+<div class="mens-toolbar">
+    <div class="sort">
+        <div class="sort-by">
+            <label>Sort By</label>
+            <select>
+                <option value="">
+                    Position
+                </option>
+                <option value="">
+                    Name
+                </option>
+                <option value="">
+                    Price
+                </option>
+            </select>
+            <a href=""><img src="/resources/i/arrow2.gif" alt="" class="v-middle"></a>
         </div>
-        <div class="sort-order">
-            <a href="http://www.chocomize.com/chocolate-shop/popular-chocolate-bars.html?dir=desc&amp;order=position"
-               title="Set Descending Direction"><img
-                    src="http://www.chocomize.com/skin/frontend/default/shopper/images/i_asc_arrow.gif"
-                    width="27" height="27" alt="Set Descending Direction" class="v-middle"/></a>
-        </div>
-
-        <p class="view-mode">
-            <label>View</label>
-            <strong title="Grid" class="grid">Grid</strong>
-            <a href="http://www.chocomize.com/chocolate-shop/popular-chocolate-bars.html?mode=list"
-               title="List" class="list">List</a>
-        </p>
-
-        <div class="limiter toolbar-switch">
-            <div class="toolbar-title">
-                <label>Show</label>
-                <span class="current">6</span>
-                <select onchange="setLocation(this.value)">
-                    <option value="http://www.chocomize.com/chocolate-shop/popular-chocolate-bars.html?limit=12">
-                        12
-                    </option>
-                    <option selected="selected"
-                            value="http://www.chocomize.com/chocolate-shop/popular-chocolate-bars.html?limit=18">
-                        18
-                    </option>
-                </select>
-                per page
-            </div>
-            <div class="toolbar-dropdown">
-                <ul>
-                    <li>
-                        <a href="http://www.chocomize.com/chocolate-shop/popular-chocolate-bars.html?limit=15">15</a>
-                    </li>
-                    <li class="selected"><a
-                            href="http://www.chocomize.com/chocolate-shop/popular-chocolate-bars.html?limit=30">30</a>
-                    </li>
-                    <li>
-                        <a href="http://www.chocomize.com/chocolate-shop/popular-chocolate-bars.html?limit=45">45</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-
     </div>
-
     <div class="pager">
-
-        <p class="amount">
-            <strong>20 Item(s)</strong>
-        </p>
-
-
+        <div class="limiter visible-desktop">
+            <label>Show</label>
+            <select>
+                <option value="" selected="selected">
+                    6
+                </option>
+                <option value="">
+                    9
+                </option>
+                <option value="">
+                    15
+                </option>
+            </select> per page
+        </div>
+        <ul class="dc_pagination dc_paginationA dc_paginationA06">
+            <li>
+                <div class="previous">Pages</div>
+            </li>
+        <#if currentPage==1>
+            <li class="disabled"><div class="show-more-button" style="max-width: 4px;max-height: 4px;">«</div></li> <#else>
+            <li><div class="js_moveOnPage show-more-button"  data-page="${currentPage-1}" data-id="${catalog.id}" data-limit="${limit}">«</div>
+            </li></#if>
+        <#if pagesCount==1 || pagesCount==2|| pagesCount==3>
+            <#list 1..pagesCount as i>
+                <#if currentPage==i>
+                    <li><div class="active js_moveOnPage show-more-button" data-id="${catalog.id}"
+                           data-page="${i}" data-limit="${limit}">${i}</div>
+                    </li><#else>
+                    <li><div class="js_moveOnPage show-more-button"  data-id="${catalog.id}" data-page="${i}" data-limit="${limit}">${i}</div>
+                    </li></#if></#list><#else>
+            <#list 1..3 as i><#if currentPage==i>
+                <li><div class="js_moveOnPage show-more-button" data-id="${catalog.id}" class="active"
+                       data-page="${i}" data-limit="${limit}">${i}</div>
+                </li><#else>
+                <li><div class="js_moveOnPage show-more-button" data-id="${catalog.id}" data-page="${i}" data-limit="${limit}">${i}</div>
+                </li></#if>  </#list>
+            <li class="disabled"><a>...</a></li>
+            <li>
+                <div class="js_moveOnPage show-more-button" data-id="${catalog.id}" data-page="${pagesCount}" data-limit="${limit}">${pagesCount}</div>
+            </li>
+        </#if>
+        <#if currentPage==pagesCount>
+            <li class="disabled"><div style="max-width: 4px;max-height: 4px;" class="show-more-button">»</div></li><#else >
+            <li><div  class="js_moveOnPage show-more-button" data-id="${catalog.id}" data-page="${currentPage+1}" data-limit="${limit}">»</div>
+            </li></#if>
+        </ul>
+        <div class="clear"></div>
     </div>
+    <div class="clear"></div>
 </div>

@@ -50,5 +50,3 @@
         </div>
     </section></#if>
 </div>
-
-<div class="clear"></div>

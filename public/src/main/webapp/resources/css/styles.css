@@ -6,16 +6,13 @@
 body
 {
 	font-size: 85%;
-	background: none #ebe8bd;
+	background: none #F3F2E6;
 	margin: 0px;
 }
 BODY *
 {
 	font-size: 100%;
 	font-family: Tahoma, Geneva, sans-serif;
-}
-#header, #footer, #center {
-	color: #5d4016;
 }
 img
 {
@@ -427,7 +424,6 @@ nav.icons li a.map {
 }
 /* /РўРѕРІР°СЂС‹ */
 
-/* Р¤СѓС‚РµСЂ */
 #footer {
 	padding: 65px 0 0;
 	position: relative;
@@ -908,3 +904,17 @@ nav.icons li a.map {
 
 	background-image: url('../../resources/i/login-bg.jpg') !important;
 }*/
+.show-more-button {
+	width: 100%;
+	border-radius: 5px;
+	border: solid 1px #f0f0f0;
+	color: #aaa;
+	background-color: #f2f2f2;
+	text-align: center;
+	padding: 15px;
+	margin: 0px 0 15px 0;
+	cursor: pointer;
+}
+.active{
+	color: #6b423c;
+}

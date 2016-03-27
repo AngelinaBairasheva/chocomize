@@ -358,7 +358,7 @@ ul.last li a:hover{
 /*--content--*/
 /*  GRID OF Content and sidebar   ============================================================================= */
 .main{
-	margin:6% 0;
+	margin:3% 0;
 }
 .cont{
 	display: block;
@@ -367,7 +367,7 @@ ul.last li a:hover{
 }
 .rsidebar{
 	display: block;
-	float:left;
+	float:left!important;
 	margin: 2.7% 0 1% 2.6%;
 } 	
 .span_2_of_3 {
@@ -1107,9 +1107,9 @@ p.cart a:hover{
 .mens-toolbar {
 	margin: 0 0 12px;
 	overflow: hidden;
-	background: #f0f3dd;
+	background: #f2f3e8;
 	padding: 5px;
-	border: 1px solid #ebdf8f;
+	border: 1px solid #e5ebe0;
 	width: 97.5%;
 }
 .mens-toolbar .sort {
@@ -1127,9 +1127,10 @@ p.cart a:hover{
 	padding: 3px 8px;
 	float: right;
 	margin: 0;
-	width:26.5%;
+	width:50%;
 }
 .pager .limiter {
+	position: relative;
 	float: right;
 	color:#777;
 	font-size:0.85em;
@@ -1155,11 +1156,20 @@ h3.page{
 .pager .pages ul li{
 	float:left;
 }
+.dc_pagination{
+	position: relative;
+	margin-right: 130px;
+}
 ul.dc_pagination li {
 	float: left;
 	margin: 0px;
 	margin-left: 5px;
 	padding: 0px;
+}
+.js_moveOnPage{
+	max-width: 4px;
+	max-height: 4px;
+	margin-top: 2px;
 }
 ul.dc_pagination li a {
 	color: #777;
@@ -2260,7 +2270,7 @@ ul.delivery-list li a:hover{
 		width: 21.5%;
 	}
 	.mens-toolbar .pager {
-		width: 33.5%;
+		width: 50%;
 	}
 	.search input[type="text"]:focus {
 		width: 65px;
@@ -2364,7 +2374,7 @@ ul.delivery-list li a:hover{
 		width: 27.5%;
 	}
 	.mens-toolbar .pager {
-		width:43.5%;
+		width:50%;
 	}
 	.tag-list {
 		margin-left:38.5%;
@@ -2530,7 +2540,7 @@ ul.delivery-list li a:hover{
 		width: 26.5%;
 	}
 	.mens-toolbar .pager {
-		width: 41.5%;
+		width: 50;
 	}
 	.span_1_of_about {
 		width: 100%;
@@ -2707,7 +2717,7 @@ ul.delivery-list li a:hover{
 		width: 26.5%;
 	}
 	.mens-toolbar .pager {
-		width: 41.5%;
+		width: 50%;
 	}
 	.span_1_of_about {
 		width: 100%;
@@ -3069,7 +3079,7 @@ ul.delivery-list li a:hover{
 		width: 26.5%;
 	}
 	.mens-toolbar .pager {
-		width: 41.5%;
+		width: 50%;
 	}
 	.span_1_of_about {
 		width: 100%;

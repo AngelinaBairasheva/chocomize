@@ -10,9 +10,11 @@
     <script type="text/javascript" src="/resources/js/jquery.ui-slider.js"></script>
     <script type="text/javascript" src="/resources/js/jquery.main.js"></script>
     <script type="text/javascript" src="/resources/js/jquery.jscrollpane.min.js"></script>
+    <script type="text/javascript" src="/resources/js/own/catalog.js"></script>
     <link href="/resources/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="/resources/css/styles.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="/resources/css/form.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/resources/css/form.css" rel="stylesheet" type="text/css" media="all" /><#--
+    <link href="/resources/css/main.css" rel="stylesheet" type="text/css" media="all" />-->
     <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="/resources/js/jquery1.min.js"></script>
     <!-- start menu -->
