@@ -915,7 +915,8 @@ nav.icons li a.map {
 	margin: 0px 0 15px 0;
 	cursor: pointer;
 }
-.active{
+ .active-page{
+	background-color: #E8D6D6;
 	color: #6b423c;
 }
 .previous{

@@ -14,4 +14,8 @@ public class UsersService {
     public void addUser(Users users) {
         usersRepository.addUser(users);
     }
+
+    public Users getUserByLogin(String login) {
+        return usersRepository.getUserByLogin(login);
+    }
 }

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -20,12 +19,8 @@ public class GoodsService {
     }
 
     @Transactional
-    public List<String> getTypesOfChocolate() {
-        return goodsRepository.getTypesOfChocolate();
-    }
-    @Transactional
-    public List<Goods> getGoodsByBrand(String brand) {
-        return goodsRepository.getGoodsByBrand(brand);
+    public List<Goods> getGoodsByBrands(String brand,List<Goods> goodses) {
+        return goodsRepository.getGoodsByBrands(brand,goodses);
     }
     @Transactional
     public List<Goods> getGoodsByDatas(String data) {
@@ -54,9 +49,14 @@ public class GoodsService {
         return goodsRepository.getGoodsByCategorysId(id);
     }
     @Transactional
+    public List<Goods> sortGoods(List<Goods> goodses, String type,String direction) {
+        return goodsRepository.sortGoodsBy(goodses,type,direction);
+    }
+    @Transactional
     public List<String> getGoodsBrands() {
         return goodsRepository.getGoodsBrands();
-    }@Transactional
+    }
+    @Transactional
      public List<String> getGoodsDatas() {
         return goodsRepository.getGoodsDatas();
     }
@@ -73,20 +73,15 @@ public class GoodsService {
         return goodsRepository.getNewGoods();
     }
     @Transactional
-    public List<Goods> getGoodsByInterval(double start,double end, String catalogName) {
-        return goodsRepository.getGoodsByInterval(start, end, catalogName);
+    public List<Goods> getGoodsByPrice(String costs, List<Goods>goodses) {
+        return goodsRepository.getGoodsByPrice(costs, goodses);
     }
     @Transactional
-    public BigDecimal getMaxPrice() {
-        return goodsRepository.getMaxPrice();
+    public Integer getMaxPrice(Long id) {
+        return goodsRepository.getMaxPrice(id);
     }
     @Transactional
-    public BigDecimal getMinPrice() {
-        return goodsRepository.getMinPrice();
-    }
-
-    @Transactional
-    public List<Goods> getChocolatesByKind(String kind) {
-        return goodsRepository.getChocolatesByKind(kind);
+    public Integer getMinPrice(Long id) {
+        return goodsRepository.getMinPrice(id);
     }
 }

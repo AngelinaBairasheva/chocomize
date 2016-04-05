@@ -1,4 +1,3 @@
-
 <#include "components/catalogToolbar.ftl">
 <#if items?? && items?has_content>
 <#list items as good>
@@ -27,5 +26,9 @@
     <#if (good_index+1)%3==0>
         <div class="clear"></div></div></#if>
 </#list>
+<#else>
+<div class="top-box">
+    <h2>Товаров по выбранным критериям нет</h2>
+</div>
 </#if>
 

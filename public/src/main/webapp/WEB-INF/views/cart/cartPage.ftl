@@ -1,18 +1,24 @@
+<#-- @ftlvariable name="Session.cart" type="com.springapp.mvc.api.domain.CartInfo" -->
 <div class="register_account">
-    <div class="wrap">
+<div class="wrap">
+<#if (Session.cart.goods)??>
+<h4 class="title">Товары в корзине:</h4>
+<p class="cart"> <#list Session.cart.goods?keys as goodId>
+    товар: ${goodId}; кол-во: ${Session.cart.getCount(goodId)}</p>
+    </#list>
+<#else>
         <h4 class="title">Shopping cart is empty</h4>
-        <p class="cart">You have no items in your shopping cart.<br>Click<a href="index.html"> here</a> to continue shopping</p>
-    </div>
+        <p class="cart">You have no items in your shopping cart.<br>Click<a href="/catalog/1L"> here</a> to continue shopping</p>
+</#if>
 </div>
-<#--
-&lt;#&ndash; @ftlvariable name="Session.cart" type="com.springapp.mvc.common.CartInfo" &ndash;&gt;
-Страница в работе!
+</div>
+<#-- Страница в работе!
 <br><br>
 <#if (Session.cart.goods)??>
 Товары в корзине:<br>
-<#list Session.cart.goods?keys as goodId>
+    <#list Session.cart.goods?keys as goodId>
     товар: ${goodId}; кол-во: ${Session.cart.getCount(goodId)}<br>
-</#list>
+    </#list>
 <#else>
-    Ваша корзина пуста!
+Ваша корзина пуста!
 </#if>-->

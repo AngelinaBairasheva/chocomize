@@ -54,6 +54,7 @@ public class Goods {
         return "Goods{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", brand='" + brand + '\'' +
                 '}';
     }
 
@@ -92,36 +93,38 @@ public class Goods {
     public void setName(String name) {
         this.name = name;
     }
+
     public Goods(Long id, String name, BigDecimal price, Integer count, String image, String vendor_code,
                  Integer calories, String composition, Integer weight, String packaging,
-                 Categories category, String size,String brand,Integer cal,String pfc,String bulk_orders) {
-        this.id=id;
+                 Categories category, String size, String brand, Integer cal, String pfc, String bulk_orders) {
+        this.id = id;
         this.name = name;
-        this.size=size;
-        this.brand=brand;
+        this.size = size;
+        this.brand = brand;
         this.price = price;
-        this.calories=cal;
-        this.pfc=pfc;
+        this.calories = cal;
+        this.pfc = pfc;
         this.count = count;
         this.image = image;
         this.vendor_code = vendor_code;
         this.calories = calories;
         this.composition = composition;
         this.weight = weight;
-        this.bulk_orders=bulk_orders;
+        this.bulk_orders = bulk_orders;
         this.packaging = packaging;
         this.category = category;
     }
+
     public Goods(Long id, String name, BigDecimal price, Integer count, String image, String vendor_code,
                  Integer calories, String composition, Integer weight, String packaging,
-                 Categories category, String size,String brand,Integer cal,String pfc) {
-        this.id=id;
+                 Categories category, String size, String brand, Integer cal, String pfc) {
+        this.id = id;
         this.name = name;
-        this.size=size;
-        this.brand=brand;
+        this.size = size;
+        this.brand = brand;
         this.price = price;
-        this.calories=cal;
-        this.pfc=pfc;
+        this.calories = cal;
+        this.pfc = pfc;
         this.count = count;
         this.image = image;
         this.vendor_code = vendor_code;
@@ -131,10 +134,11 @@ public class Goods {
         this.packaging = packaging;
         this.category = category;
     }
+
     public Goods(Long id, String name, BigDecimal price, Integer count, String image, String vendor_code,
                  Integer calories, String composition, Integer weight, String packaging,
                  Categories category) {
-        this.id=id;
+        this.id = id;
         this.name = name;
         this.price = price;
         this.count = count;
@@ -146,13 +150,14 @@ public class Goods {
         this.packaging = packaging;
         this.category = category;
     }
-    public Goods(Long id, String name, BigDecimal price,String bulk_orders, Integer count, String image, String vendor_code,
+
+    public Goods(Long id, String name, BigDecimal price, String bulk_orders, Integer count, String image, String vendor_code,
                  Integer calories, String composition, Integer weight, String packaging,
                  Categories category) {
-        this.id=id;
+        this.id = id;
         this.name = name;
         this.price = price;
-        this.bulk_orders=bulk_orders;
+        this.bulk_orders = bulk_orders;
         this.count = count;
         this.image = image;
         this.vendor_code = vendor_code;
@@ -162,6 +167,7 @@ public class Goods {
         this.packaging = packaging;
         this.category = category;
     }
+
     public BigDecimal getPrice() {
         return price;
     }

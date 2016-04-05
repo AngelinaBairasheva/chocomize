@@ -40,7 +40,7 @@
     <bean id="sessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
           p:dataSource-ref="dataSource"
-          p:configLocation="classpath:hibernate.cfg.xml">
+          p:packagesToScan="com.springapp.mvc.api.domain">
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">${jdbc.dialect}</prop>

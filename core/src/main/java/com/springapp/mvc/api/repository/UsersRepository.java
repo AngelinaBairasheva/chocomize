@@ -1,7 +1,9 @@
 package com.springapp.mvc.api.repository;
 
 import com.springapp.mvc.api.domain.Users;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,19 +15,28 @@ public class UsersRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
+    private Session curSession() {
+        return sessionFactory.getCurrentSession();
+    }
     @SuppressWarnings("unchecked")
     public List<Users> getAllUsers() {
-        return sessionFactory.getCurrentSession().createCriteria(Users.class).list();
+        return curSession().createCriteria(Users.class).list();
     }
 
     public void addUser(Users users) {
-        sessionFactory.getCurrentSession().save(users);
+        curSession().save(users);
     }
 
     public void updateUser(Users users) {
-        sessionFactory.getCurrentSession().update(users);
+        curSession().update(users);
     }
+
     public void deleteUser(Users users) {
-        sessionFactory.getCurrentSession().delete(users);
+        curSession().delete(users);
+    }
+
+    public Users getUserByLogin(String login) {
+        return (Users) curSession().createCriteria(Users.class)
+                .add(Restrictions.eq("login", login)).uniqueResult();
     }
 }

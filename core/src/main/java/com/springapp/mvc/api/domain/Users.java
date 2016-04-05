@@ -5,27 +5,53 @@ import java.util.List;
 
 @Entity
 @Table(name = "t_user")
-    public class Users {
-        @Id
-        @Column(name = "id")
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        private Long id;
-        @Column(nullable = false)
-        private Integer hash_passport;
-        @Column(length = 50, unique = true, nullable = false)
-        private String login;
-        @Column(nullable = true)
-        private String avatar;
-        @Column(name = "name", nullable = false)
-        private String name;
-        @Column(name = "secondName", nullable = false)
-        private String secondName;
-        @Column(name = "middleName", nullable = false)
-        private String middleName;
-        @Column(columnDefinition = "boolean default false")
-        private Boolean check;
-        @Column(nullable = false, unique = true)
-        private Long key;
+public class Users {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(nullable = false)
+    private String hash_passport;
+    @Column(length = 50, unique = true, nullable = false)
+    private String login;
+    private String avatar;
+    @Column(name = "name", nullable = false)
+    private String name;
+    @Column(name = "secondName", nullable = false)
+    private String secondName;
+    @Column(name = "middleName", nullable = false)
+    private String middleName;
+    private String phone;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    /**
+     * Флаг, что пользователь подтвержден и активен.
+     */
+    private Boolean enabled;
+    /**
+     * Уникальный ключ для подтверждения пользователя, отправляется по почте
+     */
+    @Column(nullable = false, unique = true)
+    private Long key;
+    /**
+     * Права доступа пользователя (возможные значения 'ROLE_USER', 'ROLE_ADMIN')
+     */
+    private String role;
     @OneToMany(cascade = CascadeType.REFRESH,
             fetch = FetchType.LAZY,
             mappedBy = "user")
@@ -38,28 +64,45 @@ import java.util.List;
             fetch = FetchType.LAZY,
             mappedBy = "user")
     private List<Cart> carts;
-    public Users(){}
 
-    public Users(Integer hash_passport, String login, String avatar, String name, String secondName, String middleName, Boolean check, Long key) {
+    public Users() {
+    }
+
+    public Users(String hash_passport, String login, String avatar, String name, String secondName, String middleName, String phone, Boolean enabled, Long key, String role, List<Address> addresses) {
         this.hash_passport = hash_passport;
         this.login = login;
         this.avatar = avatar;
         this.name = name;
         this.secondName = secondName;
         this.middleName = middleName;
-        this.check = check;
+        this.phone = phone;
+        this.enabled = enabled;
+        this.key = key;
+        this.role = role;
+        this.addresses = addresses;
+    }
+
+    public Users(String hash_passport, String login, String avatar, String name, String secondName, String middleName, Boolean check, Long key) {
+        this.hash_passport = hash_passport;
+        this.login = login;
+        this.avatar = avatar;
+        this.name = name;
+        this.secondName = secondName;
+        this.middleName = middleName;
+        this.enabled = check;
         this.key = key;
     }
 
-    public Users(Integer hash_passport, String login, String name, String secondName, String middleName, Boolean check, Long key) {
+    public Users(String hash_passport, String login, String name, String secondName, String middleName, Boolean check, Long key) {
         this.hash_passport = hash_passport;
         this.login = login;
         this.name = name;
         this.secondName = secondName;
         this.middleName = middleName;
-        this.check = check;
+        this.enabled = check;
         this.key = key;
     }
+
     public Long getId() {
         return id;
     }
@@ -68,11 +111,11 @@ import java.util.List;
         this.id = id;
     }
 
-    public Integer getHash_passport() {
+    public String getHash_passport() {
         return hash_passport;
     }
 
-    public void setHash_passport(Integer hash_passport) {
+    public void setHash_passport(String hash_passport) {
         this.hash_passport = hash_passport;
     }
 
@@ -116,12 +159,12 @@ import java.util.List;
         this.middleName = middleName;
     }
 
-    public Boolean getCheck() {
-        return check;
+    public Boolean getEnabled() {
+        return enabled;
     }
 
-    public void setCheck(Boolean check) {
-        this.check = check;
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Long getKey() {

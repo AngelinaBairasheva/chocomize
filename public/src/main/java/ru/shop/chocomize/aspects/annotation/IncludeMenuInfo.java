@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * По этой аннотации в request добавляется список категорий для меню из MainMenuAspect
+ * РџРѕ СЌС‚РѕР№ Р°РЅРЅРѕС‚Р°С†РёРё РІ request РґРѕР±Р°РІР»СЏРµС‚СЃСЏ СЃРїРёСЃРѕРє РєР°С‚РµРіРѕСЂРёР№ РґР»СЏ РјРµРЅСЋ РёР· MainMenuAspect
  *
  */
 @Target(ElementType.METHOD)

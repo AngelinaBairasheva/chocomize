@@ -1,6 +1,6 @@
 package ru.shop.chocomize.controllers;
 
-import com.springapp.mvc.api.service.CartsService;
+import com.springapp.mvc.api.service.CartInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Контроллер для работы с корзиной
+ * РљРѕРЅС‚СЂРѕР»Р»РµСЂ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РєРѕСЂР·РёРЅРѕР№
  *
  */
 @Controller
@@ -20,10 +20,10 @@ public class CartController {
     @Autowired
     private HttpServletRequest request;
     @Autowired
-    private CartsService cartService;
+    private CartInfoService cartInfoService;
 
     /**
-     * Отображение содержимого корзины
+     * РћС‚РѕР±СЂР°Р¶РµРЅРёРµ СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РєРѕСЂР·РёРЅС‹
      */
     @RequestMapping
     public String renderCart() {
@@ -31,14 +31,14 @@ public class CartController {
     }
 
     /**
-     * Добавление товара в корзину
+     * Р”РѕР±Р°РІР»РµРЅРёРµ С‚РѕРІР°СЂР° РЅРµР°РІС‚РѕСЂРёР·РѕРІР°РЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РІ РєРѕСЂР·РёРЅСѓ
      *
-     * @param goodId id товара
+     * @param goodId id С‚РѕРІР°СЂР°
      */
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addInCart(Long goodId) {
-       // cartService.addCart(request.getSession(), goodId, 1);
+    public String addInCart(String goodId) {
+        cartInfoService.addInCart(request.getSession(), goodId, 1);
         return "ok";
     }
 }
