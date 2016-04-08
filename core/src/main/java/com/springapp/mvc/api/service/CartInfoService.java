@@ -35,7 +35,9 @@ public class CartInfoService {
     }
     public void deleteGood(HttpSession session, Long goodId) {
         CartInfo cart = (CartInfo) session.getAttribute(Constants.SESSION_CART);
+        System.out.println("CARTSIZE="+cart.getGoods().size());
         cart.getGoods().remove(goodId);
+        System.out.println("CARTSIZE="+cart.getGoods().size());
         session.setAttribute(Constants.SESSION_CART, cart);
     }
     public void addInCartBySelect(HttpSession session, Long goodId, Integer count) {
@@ -54,7 +56,7 @@ public class CartInfoService {
                 cart.getGoods().put(goodId, count);
             }
         }
-        System.out.println("CART_SIZE="+cart.getGoods().size());
+        System.out.println("CART_SIZE=" + cart.getGoods().size());
         session.setAttribute(Constants.SESSION_CART, cart);
     }
 

@@ -49,12 +49,13 @@
                     <li><a class="active-icon c2" href="/cart"> </a>
                         <ul class="sub-icon1 list">
                         <#if (Session.cart.goods)??>
+                            <li><h3>Your Products</h3><a href=""></a></li>
+                            <li><p>You have items in your shopping cart. Click to the button!
+                            </p>
+                            </li>
+                        <#else>
                             <li><h3>No Products</h3><a href=""></a></li>
                             <li><p>You have no items in your shopping cart.
-                            </p>
-                            </li><#else>
-                            <li><h3>Your Products</h3><a href=""></a></li>
-                            <li><p>You have ${(Session.cart.goods.size)} items in your shopping cart.
                             </p>
                             </li>
                         </#if>

@@ -22,7 +22,8 @@
                     <p class="m_5">Rub. ${item.price} </p>
                     <div class="btn_form">
                         <form>
-                            <input type="submit" value="buy" title="">
+                            <input type="submit" title="">
+                            <a style="" class="cart-right button js_addToCart" data-id="${item.id}" href="/cart"></a>
                         </form>
                     </div>
                         <div class="params">

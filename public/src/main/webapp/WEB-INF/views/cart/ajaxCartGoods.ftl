@@ -1,6 +1,6 @@
 <#assign total=0>
 <#if (Session.cart.goods)??>
-<fieldset class="fieldset_41" style="display:inline-block ; width:100% ;">
+<div class="fieldset_41" style="display:inline-block ; width:100% ;">
     <!-- 2014.4.1 end -->
 
     <table id="shopping-cart-table" class="data-table cart-table">
@@ -84,20 +84,15 @@
                 </td>
                 <td class="a-center td-delete">
 
-                    <input type="submit" value="Edit" class="edit_cart"
-                           href="http://www.chocomize.com/checkout/cart/configure/id/1293943/"
-                           title="Edit item parameters">
-
-                    <input type="submit" value="Delete"
-                           href="http://www.chocomize.com/checkout/cart/delete/id/1293943/form_key/OnpApSIAgu0SqCQF/uenc/aHR0cDovL3d3dy5jaG9jb21pemUuY29tL2NoZWNrb3V0L2NhcnQv/"
-                           title="Remove item" class="cart_delete">
+                    <a data-goodid="${goodId}"
+                       title="Remove item" class="button deleteGood button cart_delete">Delete</a>
                 </td>
             </tr>
             </#list>
         </tbody>
     </table>
 
-</fieldset>
+</div>
 
 <!-- 2014.4.2 start -->
 <div class="card_position42">

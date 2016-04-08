@@ -69,7 +69,6 @@ $(document).ready(function () {
     $(document).on("change", "select#select_count", function () {
         var $this = $(this);
         var $value = $this.val();
-        alert($this.data('goodid'));
         $.ajax({
             type: "POST",
             url: "/cart/setCount",

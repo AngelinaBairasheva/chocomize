@@ -28,7 +28,7 @@
                                                 <span class="actual">${good.price} руб.</span>
                                             </div>
                                         </div>
-                                        <div class="cart-right"></div>
+                                        <a class="cart-right button js_addToCart" data-id="${good.id}" href="/cart"></a>
                                         <div class="clear"></div>
                                     </div>
                                 </div>
