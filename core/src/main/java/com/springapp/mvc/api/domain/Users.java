@@ -11,7 +11,7 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false)
-    private String hash_passport;
+    private String hash_password;
     @Column(length = 50, unique = true, nullable = false)
     private String login;
     private String avatar;
@@ -42,11 +42,12 @@ public class Users {
     /**
      * Флаг, что пользователь подтвержден и активен.
      */
+    @Column(nullable = false)
     private Boolean enabled;
     /**
      * Уникальный ключ для подтверждения пользователя, отправляется по почте
      */
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private Long key;
     /**
      * Права доступа пользователя (возможные значения 'ROLE_USER', 'ROLE_ADMIN')
@@ -68,8 +69,18 @@ public class Users {
     public Users() {
     }
 
+    public Users(String hash_passport, String login, String name, String secondName, String middleName, String phone, Boolean enabled) {
+        this.hash_password = hash_passport;
+        this.login = login;
+        this.name = name;
+        this.secondName = secondName;
+        this.middleName = middleName;
+        this.phone = phone;
+        this.enabled = enabled;
+    }
+
     public Users(String hash_passport, String login, String avatar, String name, String secondName, String middleName, String phone, Boolean enabled, Long key, String role, List<Address> addresses) {
-        this.hash_passport = hash_passport;
+        this.hash_password = hash_passport;
         this.login = login;
         this.avatar = avatar;
         this.name = name;
@@ -83,7 +94,7 @@ public class Users {
     }
 
     public Users(String hash_passport, String login, String avatar, String name, String secondName, String middleName, Boolean check, Long key) {
-        this.hash_passport = hash_passport;
+        this.hash_password = hash_passport;
         this.login = login;
         this.avatar = avatar;
         this.name = name;
@@ -94,7 +105,7 @@ public class Users {
     }
 
     public Users(String hash_passport, String login, String name, String secondName, String middleName, Boolean check, Long key) {
-        this.hash_passport = hash_passport;
+        this.hash_password = hash_passport;
         this.login = login;
         this.name = name;
         this.secondName = secondName;
@@ -111,12 +122,12 @@ public class Users {
         this.id = id;
     }
 
-    public String getHash_passport() {
-        return hash_passport;
+    public String getHash_password() {
+        return hash_password;
     }
 
-    public void setHash_passport(String hash_passport) {
-        this.hash_passport = hash_passport;
+    public void setHash_password(String hash_password) {
+        this.hash_password = hash_password;
     }
 
     public String getLogin() {
@@ -197,5 +208,22 @@ public class Users {
 
     public void setCarts(List<Cart> carts) {
         this.carts = carts;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                ", hash_passport='" + hash_password + '\'' +
+                ", login='" + login + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", name='" + name + '\'' +
+                ", secondName='" + secondName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", enabled=" + enabled +
+                ", key=" + key +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

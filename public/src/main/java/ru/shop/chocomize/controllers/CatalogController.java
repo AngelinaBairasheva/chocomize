@@ -41,18 +41,21 @@ public class CatalogController extends BaseController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String renderCatalog(@PathVariable("id") Long id,
                                 @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-                                Integer limit, String sorttype, String dir, Model model) {
-        List<Goods> goods = goodsService.getGoodsByPage(goodsService.sortGoods(goodsService.getGoodsByCategorysId(id),
-                sorttype == null ? "pstn" : sorttype, dir == null ? "asc" : dir), page, limit == null ? Constants.ITEMS_LIMIT : limit);
+                                Integer limit, String sorttype, String dir, Model model, String brands, String costs) {
+        List<Goods> goods= goodsService.getGoodsByPage(goodsService.sortGoods(goodsService.getGoodsByBrands(brands,
+                        goodsService.getGoodsByPrice(costs==null?goodsService.getMinPrice(id)+","+goodsService.getMaxPrice(id):costs,
+                                 goodsService.getGoodsByCategorysId(id))), sorttype == null ? "pstn" : sorttype, dir == null ? "asc" : dir),
+                page, limit == null ? Constants.ITEMS_LIMIT : limit);
         model.addAttribute("items", goods);
         model.addAttribute("catalog", categoriesService.getCategoryById(id));
         model.addAttribute("currentPage", page);
+        model.addAttribute("sorttype", sorttype == null ? "pstn" : sorttype);
+        model.addAttribute("dir", dir == null ? "asc" : dir);
         model.addAttribute("pagesCount", goodsService.getPagesCount(goodsService.getGoodsByCategorysId(id), limit == null ? Constants.ITEMS_LIMIT : limit));
         model.addAttribute("limit", limit == null ? Constants.ITEMS_LIMIT : limit);
         model.addAttribute("brandses", goodsService.getGoodsBrands());
-        model.addAttribute("costs", goodsService.getMinPrice(id)+","+goodsService.getMaxPrice(id));
-        System.out.println("COSTS="+goodsService.getMinPrice(id)+","+goodsService.getMaxPrice(id));
-        model.addAttribute("brands", Arrays.toString(goodsService.getGoodsBrands().toArray()));
+        model.addAttribute("costs", costs==null?goodsService.getMinPrice(id)+","+goodsService.getMaxPrice(id):costs);
+        model.addAttribute("brands", brands==null?Arrays.toString(goodsService.getGoodsBrands().toArray()):brands);
         model.addAttribute("min", goodsService.getMinPrice(id));
         model.addAttribute("max", goodsService.getMaxPrice(id));
         return Constants.ATTR_CATALOG;
@@ -69,11 +72,10 @@ public class CatalogController extends BaseController {
      */
     @RequestMapping(value = "/showMore", method = RequestMethod.POST)
     public String showMoreGoods(Long id, Integer page, Integer limit, String sorttype, String dir, String costs, String brands, Model model) {
-         
+
         List<Goods> goods = goodsService.getGoodsByPage(goodsService.sortGoods(goodsService.getGoodsByBrands(brands,
                         goodsService.getGoodsByPrice(costs, goodsService.getGoodsByCategorysId(id))), sorttype, dir),
                 page, limit);
-        System.out.println("page=" + page);
         model.addAttribute("items", goods);
         model.addAttribute("currentPage", page);
         model.addAttribute("dir", dir);
@@ -153,13 +155,6 @@ public class CatalogController extends BaseController {
     @RequestMapping(value = "/selectByPrice", method = RequestMethod.POST)
     public String selectByPrice(Long id, Integer page, Integer limit, String sorttype, String dir, String costs, String brands,
                                 Model model) {
-        System.out.println("SELECT BY PRICE");
-        System.out.println("brans="+brands);
-        System.out.println("ByPrice="+goodsService.getGoodsByPrice(costs, goodsService.getGoodsByCategorysId(id)).size());
-        System.out.println("ByBrands="+goodsService.getGoodsByBrands(brands,
-                goodsService.getGoodsByPrice(costs, goodsService.getGoodsByCategorysId(id))).size());
-        System.out.println("sort="+goodsService.sortGoods(goodsService.getGoodsByBrands(brands,
-                goodsService.getGoodsByPrice(costs, goodsService.getGoodsByCategorysId(id))), sorttype, dir).size());
         List<Goods> goods = goodsService.getGoodsByPage(goodsService.sortGoods(goodsService.getGoodsByBrands(brands,
                         goodsService.getGoodsByPrice(costs, goodsService.getGoodsByCategorysId(id))), sorttype, dir),
                 page, limit);
@@ -173,21 +168,16 @@ public class CatalogController extends BaseController {
         model.addAttribute("costs",costs);
         model.addAttribute("brands", brands);
         model.addAttribute("catalog", categoriesService.getCategoryById(id));
-        System.out.println("OK!!!");
         return Constants.AJAX_GOODS;
     }
 
     @RequestMapping(value = "/selectByBrands", method = RequestMethod.POST)
     public String selectByBrands(Long id, Integer page, Integer limit, String sorttype, String dir, String costs, String brands,
                                  Model model) {
-        System.out.println("ERR");
-        System.out.println("brands=" + brands);
-
         List<Goods> goods = goodsService.getGoodsByPage(goodsService.sortGoods(
                         goodsService.getGoodsByBrands(brands, goodsService.getGoodsByPrice(costs, goodsService.getGoodsByCategorysId(id))), sorttype, dir),
                 page, limit);
         model.addAttribute("items", goods);
-        System.out.println("items" + goods);
         model.addAttribute("sorttype", sorttype);
         model.addAttribute("currentPage", page);
         model.addAttribute("sort", sorttype);

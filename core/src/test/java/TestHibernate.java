@@ -1,7 +1,9 @@
 import com.springapp.mvc.api.domain.Categories;
 import com.springapp.mvc.api.domain.Goods;
+import com.springapp.mvc.api.domain.Users;
 import com.springapp.mvc.api.service.CategoriesService;
 import com.springapp.mvc.api.service.GoodsService;
+import com.springapp.mvc.api.service.UsersService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.math.BigDecimal;
@@ -11,18 +13,21 @@ public class TestHibernate {
 
     public static GoodsService goodsService;
     public static CategoriesService categoriesService;
+    public static UsersService usersService;
 
     public static void init() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
                 new String[]{"shop-core.xml"}, true);
+
         goodsService = (GoodsService) context.getBean("goodsService");
         categoriesService = (CategoriesService) context.getBean("categoriesService");
+        usersService= (UsersService) context.getBean("usersService");
     }
 
     public static void main(String[] args) throws SQLException {
         init();
         insert();
-        //  test();
+         //test();
     }
 
     public static void insert() {
@@ -130,13 +135,18 @@ public class TestHibernate {
                 "какао тертое, пудра сахарная, вишня вяленая, ядро орехов фундука, какао масло, ядро фундука жареное дробленое, эмульгатор лецитин, ароматизатор идентичный натуральному ванилин.", 100, "пластиковая упаковка", categories,"190 x 80 x 10 мм",
                 "Godiva", 565, "белки – 6,0 г, жиры – 36,1 г, углеводы –54г","Events & Party Favors");
         goodsService.addGood(goods17);
+        Users user = new Users("e10adc3949ba59abbe56e057f20f883e", "milronnie@mail.ru", "Darya", "Cambell", "SS", "123", true);
+        user.setRole("ROLE_USER");
+        user.setKey(3434534L);
+        usersService.addUser(user);
     }
 
     public static void test() {
-        System.out.println(categoriesService.getAllCategories());
-        System.out.println(categoriesService.getEndedCategories());
-       System.out.println(goodsService.getGoodsByCategorysId(2L));
-        System.out.println(goodsService.getNewGoods());
+        System.out.println(usersService.getUserByLogin("milronnie@mail.ru"));
+//        System.out.println(categoriesService.getAllCategories());
+//        System.out.println(categoriesService.getEndedCategories());
+//       System.out.println(goodsService.getGoodsByCategorysId(2L));
+//        System.out.println(goodsService.getNewGoods());
         /*System.out.println(goodsService.getGoodsByPage(goodsService.getGoodsByCategorysName("шоколадные композиции"), 2));
         System.out.println(goodsService.getGoodsByPage(goodsService.getGoodsByCategorysName("шоколадные композиции"), 3));*/
     }

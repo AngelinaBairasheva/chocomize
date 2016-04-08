@@ -28,7 +28,14 @@ public class GoodController extends BaseController{
     @IncludeMenuInfo
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String renderItemsPage(@PathVariable Long id) {
+
         request.setAttribute("item", goodsService.getGoodsById(id));
+        request.setAttribute("page", request.getParameter("page"));
+        request.setAttribute("limit", request.getParameter("limit"));
+        request.setAttribute("sorttype", request.getParameter("sorttype"));
+        request.setAttribute("dir", request.getParameter("dir"));
+        request.setAttribute("brands", request.getParameter("brands"));
+        request.setAttribute("costs", request.getParameter("costs"));
         return Constants.ATTR_ITEM;
     }
 

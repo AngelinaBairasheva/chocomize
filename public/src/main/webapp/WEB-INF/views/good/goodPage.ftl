@@ -18,7 +18,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="  description" style="font-size: 15px;">
-                    <h1 >${item.name}</h1>
+                    <h1>${item.name}</h1>
                     <p class="m_5">Rub. ${item.price} </p>
                     <div class="btn_form">
                         <form>
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-                    <a href="../" class="back-link">Возврат в каталог</a></article>
+                    <a href='/catalog/${item.category.id}?page=${page}&limit=${limit}&sorttype=${sorttype}&dir=${dir}&brands=${brands}&costs=${costs}' class="back-link">Возврат в каталог</a></article>
                 <div class="clear"></div>
             </div>
 

@@ -42,31 +42,30 @@
                     <li><a class="color7" href="other.html">Purchase</a></li>
                 </ul>
             </div>
-            </div>
-            <div class="header-bottom-right">
-                <div class="search">
-                    <input type="text" name="s" class="textbox" value="Search" onfocus="this.value = '';"
-                           onblur="if (this.value == '') {this.value = 'Search';}">
-                    <input type="submit" value="Subscribe" id="submit" name="submit">
-
-                    <div id="response"></div>
-                </div>
-                <div class="tag-list">
-                    <ul class="icon1 sub-icon1 profile_img">
-                        <li><a class="active-icon c2" href="#"> </a>
-                            <ul class="sub-icon1 list">
-                                <li><h3>No Products</h3><a href=""></a></li>
-                                <li><p>Lorem ipsum dolor sit amet, consectetuer <a href="">adipiscing elit, sed diam</a>
-                                </p>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="last">
-                        <li><a href="#">Cart(0)</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="clear"></div>
         </div>
+        <div class="header-bottom-right">
+            <div class="tag-list">
+                <ul class="icon1 sub-icon1 profile_img">
+                    <li><a class="active-icon c2" href="/cart"> </a>
+                        <ul class="sub-icon1 list">
+                        <#if (Session.cart.goods)??>
+                            <li><h3>No Products</h3><a href=""></a></li>
+                            <li><p>You have no items in your shopping cart.
+                            </p>
+                            </li><#else>
+                            <li><h3>Your Products</h3><a href=""></a></li>
+                            <li><p>You have ${(Session.cart.goods.size)} items in your shopping cart.
+                            </p>
+                            </li>
+                        </#if>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="last">
+                    <li><a href="#">Cart(0)</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div>
     </div>
+</div>

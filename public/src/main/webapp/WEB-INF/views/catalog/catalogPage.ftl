@@ -36,7 +36,7 @@
                         <#if good_index%3==0 >
                         <div class="top-box"></#if>
                         <div class="col_1_of_3 span_1_of_3">
-                            <a href="/good/${good.id}">
+                            <a href='/good/${good.id}?page=${currentPage}&limit=${limit}&sorttype=${sorttype}&dir=${dir}&brands=${brands}&costs=${costs}'>
                                 <div class="inner_content clearfix">
                                     <div class="product_image">
                                         <img src="${good.image}" alt=""/>
@@ -49,7 +49,9 @@
                                                 <span class="actual">${good.price} руб.</span>
                                             </div>
                                         </div>
-                                        <div class="cart-right"></div>
+                                        <a class="cart-right button js_addToCart" data-id="${good.id}" href="/cart"></a>
+
+                                        <#--<div class="cart-right" ></div>-->
                                         <div class="clear"></div>
                                     </div>
                                 </div>

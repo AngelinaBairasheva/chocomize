@@ -14,8 +14,17 @@ public class UsersService {
     public void addUser(Users users) {
         usersRepository.addUser(users);
     }
-
+    @Transactional
+    public Users getUserById(Long id) {
+        return usersRepository.getUserById(id);
+    }
+    @Transactional
     public Users getUserByLogin(String login) {
         return usersRepository.getUserByLogin(login);
+    }
+
+    @Transactional
+    public void updateUser(Users users) {
+        usersRepository.updateUser(users);
     }
 }

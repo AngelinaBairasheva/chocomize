@@ -15,12 +15,18 @@ public class UsersRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
+
     private Session curSession() {
         return sessionFactory.getCurrentSession();
     }
+
     @SuppressWarnings("unchecked")
     public List<Users> getAllUsers() {
         return curSession().createCriteria(Users.class).list();
+    }
+
+    public Users getUserById(Long id) {
+        return (Users) curSession().load(Users.class, id);
     }
 
     public void addUser(Users users) {
@@ -36,7 +42,7 @@ public class UsersRepository {
     }
 
     public Users getUserByLogin(String login) {
-        return (Users) curSession().createCriteria(Users.class)
+        return (Users) sessionFactory.getCurrentSession().createCriteria(Users.class)
                 .add(Restrictions.eq("login", login)).uniqueResult();
     }
 }

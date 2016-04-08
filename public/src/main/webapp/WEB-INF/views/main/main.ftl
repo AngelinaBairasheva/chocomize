@@ -1,7 +1,8 @@
 <#-- @ftlvariable name="newGoods" type="java.util.List<com.springapp.mvc.api.domain.Goods>" -->
 <#-- @ftlvariable name="macarons" type="java.util.List<com.springapp.mvc.api.domain.Goods>" -->
 <#include "../template/template.ftl">
-<@mainTemplate title="Personalized Chocolate &amp; Custom Corporate Gifts | Chocomize" />
+<@mainTemplate title="Personalized Chocolate &amp; Custom Corporate Gifts | Chocomize" scripts=['js/jquery-ui.min.js',
+'js/jquery.main.js']/>
 <#macro m_body>
     <#include "../template/components/slider.ftl">
 <div class="main">

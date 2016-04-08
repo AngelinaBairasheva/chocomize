@@ -11,6 +11,7 @@
     <modules>
         <module>public</module>
         <module>core</module>
+        <module>mailing</module>
     </modules>
     <properties>
         <org.springframework.version>4.1.2.RELEASE</org.springframework.version>

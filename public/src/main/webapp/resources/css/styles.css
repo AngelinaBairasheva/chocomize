@@ -736,6 +736,7 @@ nav.icons li a.map {
 }
 .cart td {
 	border-bottom: 1px dashed #b8a25e;
+	height: 80px;
 }
 .cart .resume td {
 	border-bottom: none;
@@ -768,6 +769,8 @@ nav.icons li a.map {
 	color: #5d4016;
 }
 .cart .price {
+
+	font-size: 19px;
 	width: 162px;
 	text-align: center;
 }

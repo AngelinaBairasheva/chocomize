@@ -20,9 +20,9 @@ $(document).ready(function () {
                 $("#goodsList").empty();
                 $("#goodsList").append(data);
                 $('input#radioPrice').removeAttr('data-page');
-                $('input#radioPrice').attr('data-page',$this.data('page'));
+                $('input#radioPrice').attr('data-page', $this.data('page'));
                 $('input#checkboxBrands').removeAttr('data-page');
-                $('input#checkboxBrands').attr('data-page',$this.data('page'));
+                $('input#checkboxBrands').attr('data-page', $this.data('page'));
             } else {
                 $this.hide();
             }
@@ -55,9 +55,89 @@ $(document).ready(function () {
                 $("#goodsList").empty();
                 $("#goodsList").append(data);
                 $('input#radioPrice').removeAttr('data-limit');
-                $('input#radioPrice').attr('data-limit',$value);
+                $('input#radioPrice').attr('data-limit', $value);
                 $('input#checkboxBrands').removeAttr('data-limit');
-                $('input#checkboxBrands').attr('data-limit',$value);
+                $('input#checkboxBrands').attr('data-limit', $value);
+            } else {
+                $this.hide();
+            }
+        }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
+            $this.hide();
+            alert("Приносим извинения.<br/>На сервере произошла ошибка");
+        });
+    });
+    $(document).on("change", "select#select_count", function () {
+        var $this = $(this);
+        var $value = $this.val();
+        alert($this.data('goodid'));
+        $.ajax({
+            type: "POST",
+            url: "/cart/setCount",
+            data: {
+                goodId: $this.data('goodid'),
+                count: $value
+            }}).done(function (data) {  // сюда приходит ответ при успехе
+                //console.log(data);
+                if (data != '') {
+                    $('#listCart').empty();
+                    $('#listCart').append(data);
+                } else {
+                    $this.hide();
+                }
+        }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
+            $this.hide();
+            alert("Приносим извинения.<br/>На сервере произошла ошибка");
+        });
+    });
+    $(document).on("click", ".deleteGood", function () {
+        var $this = $(this);
+        alert("delete");
+        alert($this.data('goodid'));
+        $.ajax({
+            type: "POST",
+            url: "/cart/deleteGood",
+            data: {
+                goodId: $this.data('goodid')
+            }}).done(function (data) {  // сюда приходит ответ при успехе
+            //console.log(data);
+            if (data != '') {
+                $('#listCart').empty();
+                $('#listCart').append(data);
+            } else {
+                $this.hide();
+            }
+        }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
+            $this.hide();
+            alert("Приносим извинения.<br/>На сервере произошла ошибка");
+        });
+    });
+    $(document).on("change", "select#select_limit", function () {
+        var $this = $(this);
+        var $value = $this.val();
+        var page = $this.data('page'),
+            dir = $this.data('dir'),
+            sorttype = $this.data('sorttype');
+        $.ajax({
+            type: "POST",
+            url: "/catalog/setLimit",
+            data: {
+                id: $this.data('id'),
+                page: page,
+                limit: $value,
+                dir: dir,
+                sorttype: sorttype,
+                costs: $this.data('costs'),
+                brands: $this.data('brands')
+            }
+        }).done(function (data) {  // сюда приходит ответ при успехе
+            //console.log(data);
+            if (data != '') {
+                $("#goodsList").empty();
+                $("#goodsList").append(data);
+                $('input#radioPrice').removeAttr('data-limit');
+                $('input#radioPrice').attr('data-limit', $value);
+                $('input#checkboxBrands').removeAttr('data-limit');
+                $('input#checkboxBrands').attr('data-limit', $value);
             } else {
                 $this.hide();
             }
@@ -90,9 +170,9 @@ $(document).ready(function () {
                 $("#goodsList").empty();
                 $("#goodsList").append(data);
                 $('input#radioPrice').removeAttr('data-sorttype');
-                $('input#radioPrice').attr('data-sorttype',$values);
+                $('input#radioPrice').attr('data-sorttype', $values);
                 $('input#checkboxBrands').removeAttr('data-sorttype');
-                $('input#checkboxBrands').attr('data-sorttype',$values);
+                $('input#checkboxBrands').attr('data-sorttype', $values);
             } else {
                 $this.hide();
             }
@@ -130,9 +210,9 @@ $(document).ready(function () {
                 $("#goodsList").empty();
                 $("#goodsList").append(data);
                 $('input#radioPrice').removeAttr('data-dir');
-                $('input#radioPrice').attr('data-dir',$dir);
+                $('input#radioPrice').attr('data-dir', $dir);
                 $('input#checkboxBrands').removeAttr('data-dir');
-                $('input#checkboxBrands').attr('data-dir',$dir);
+                $('input#checkboxBrands').attr('data-dir', $dir);
             } else {
                 $this.hide();
             }
@@ -146,7 +226,7 @@ $(document).ready(function () {
         var page = $this.data('page');
         var limit = $this.data('limit');
         var dir = $this.data('dir');
-        var str =  $('input#radioPrice:checked').val();
+        var str = $('input#radioPrice:checked').val();
         $.ajax({
             type: "POST",
             url: "/catalog/selectByPrice",
@@ -165,7 +245,7 @@ $(document).ready(function () {
                 $("#goodsList").empty();
                 $("#goodsList").append(data);
                 $('input#checkboxBrands').removeAttr('data-costs');
-                $('input#checkboxBrands').attr('data-costs',str);
+                $('input#checkboxBrands').attr('data-costs', str);
             } else {
                 $this.hide();
             }
@@ -183,11 +263,6 @@ $(document).ready(function () {
         $('input#checkboxBrands:checked').each(function () {
             selectedItems.push($(this).val());
         });
-        /*if(selectedItems.length==0){
-            alert("empty");
-            selectedItems= $('input#checkboxBrands').not(':checked');
-            alert(selectedItems.length );
-        }*/
         var strJson = JSON.stringify(selectedItems);
         $.ajax({
             type: "POST",
@@ -205,7 +280,7 @@ $(document).ready(function () {
             //console.log(data);
             if (data != '') {
                 $('input#radioPrice').removeAttr('data-brands');
-                $('input#radioPrice').attr('data-brands',strJson);
+                $('input#radioPrice').attr('data-brands', strJson);
                 $("#goodsList").empty();
                 $("#goodsList").append(data);
             } else {
@@ -216,28 +291,28 @@ $(document).ready(function () {
             alert("Приносим извинения.<br/>На сервере произошла ошибка");
         });
     });
-    /*
-     $(document).on('click', '.js_addToCart', function () {
-     //alert(3);
-     event.preventDefault();
-     var $this = $(this);
-     $.ajax({
-     type: 'POST',
-     url: '/cart/add',
-     data: {goodId: $this.data('id')},
-     success: function (data, status) {  // успешное завершение работы
-     console.log('/cart/add result: data=' + data + '; status=' + status);
-     if (data == 'ok') {
-     $this.removeClass('js_addToCart').text('Go in cart').css('background', 'rgb(280, 124, 83)');
-     }
-     },
-     error: function () {    // На сервере произошла ошибка
-     alert('Приносим извинения.<br/>На сервере произошла ошибка');
-     }
-     });
-     });
 
-     $(document).on('click', '.js_goodDetail', function () {
+    $(document).on('click', '.js_addToCart', function () {
+        // alert(3);
+        event.preventDefault();
+        var $this = $(this);
+        $.ajax({
+            type: 'POST',
+            url: '/cart/add',
+            data: {goodId: $this.data('id')},
+            success: function (data, status) {  // успешное завершение работы
+                console.log('/cart/add result: data=' + data + '; status=' + status);
+                if (data == 'ok') {
+                    $this.removeClass('js_addToCart').text('Go in cart').css('background', 'rgb(280, 124, 83)');
+                }
+            },
+            error: function () {    // На сервере произошла ошибка
+                alert('Приносим извинения.<br/>На сервере произошла ошибка');
+            }
+        });
+    });
+
+    /*  $(document).on('click', '.js_goodDetail', function () {
      event.preventDefault();
      $.ajax({
      type: 'POST',

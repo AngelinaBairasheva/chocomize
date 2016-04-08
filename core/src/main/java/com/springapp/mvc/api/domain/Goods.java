@@ -49,14 +49,7 @@ public class Goods {
         this.pfc = pfc;
     }
 
-    @Override
-    public String toString() {
-        return "Goods{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", brand='" + brand + '\'' +
-                '}';
-    }
+
 
     public Goods(Long id, String name, BigDecimal price, Integer count, String size, String image, String description,
                  String vendor_code, String brand, Integer calories, String composition, Integer weight, String packaging,

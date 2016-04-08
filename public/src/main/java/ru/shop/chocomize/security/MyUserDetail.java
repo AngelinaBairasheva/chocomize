@@ -38,7 +38,7 @@ public class MyUserDetail implements UserDetails {
      */
     @Override
     public String getPassword() {
-        return userInfo.getHash_passport();
+        return userInfo.getHash_password();
     }
 
     /**

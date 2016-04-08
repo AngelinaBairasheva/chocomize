@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -59,7 +58,6 @@ public class GoodsRepository {
         }
         Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Goods.class);
         crit2.add(Restrictions.in("id", goodsId));
-        System.out.println("type=" + type + ", dir=" + direction);
         if (type.equals("pstn")) {
             if (direction.equals("asc")) {
                 crit2.addOrder(org.hibernate.criterion.Order.asc("id"));
@@ -82,7 +80,6 @@ public class GoodsRepository {
             }
         }
         result = crit2.list();
-        System.out.println("=========" + result);
         return result;
     }
 
@@ -106,27 +103,20 @@ public class GoodsRepository {
 
     public List<Goods> getGoodsByBrands(String brands, List<Goods> goodses) {
         List<Goods> result;
-        System.out.println("bras="+brands);
         if ( brands!=null && !brands.equals("[]")) {
-            System.out.println("not equals");
             String s = brands.replaceAll("[\\[\"\\]]", "");
-            String[] b = s.split(",\\s");
-            System.out.println("brands.len!=0" + Arrays.toString(b));
+            String[] b = s.split(",\\s*");
             List<Long> goodsIds = new ArrayList<>();
             for (Goods goods1 : goodses) {
                 goodsIds.add(goods1.getId());
             }
-            System.out.println("goodses="+goodses);
-            System.out.println("goodsIds="+goodsIds);
             Criteria crit1 = sessionFactory.getCurrentSession().createCriteria(Goods.class);
             crit1.add(Restrictions.in("id", goodsIds));
             crit1.add(Restrictions.in("brand", b));
             result = crit1.list();
         } else {
-            System.out.println("==0");
             result = goodses;
         }
-        System.out.println(result);
         return result;
     }
 
@@ -142,19 +132,14 @@ public class GoodsRepository {
         List<Goods> result;
         List<Goods> newGoods = new LinkedList<>();
         List<Long> goodsId = new ArrayList<>();
-        System.out.println("goods=" + goods);
 
 
         int maxRez = limit * page;
-        System.out.println("goods.size()=" + goods.size() + ", maxRez=" + maxRez);
-
-
         int size = goods.size(); //���-�� ������� � ���������
         int maxResult = limit;              //���-�� �������, �������������� �� ��������� ��������
         if (size - limit * page <= 0) {
             maxResult = size - limit * (page - 1);
         }
-        System.out.println("maxResult=" + maxResult);
         int r = maxRez - maxResult - 2;
         if (r < 0) {
             r = 0;
@@ -165,8 +150,6 @@ public class GoodsRepository {
             newGoods.add(goods.get(i));
         }
         result = newGoods;
-        System.out.println("****************END");
-        System.out.println("-----------------" + result);
         return result;
     }
 
@@ -207,10 +190,8 @@ public class GoodsRepository {
     public List<Goods> getGoodsByPrice(String costs, List<Goods> goodses) {
         List<Goods> result;
         String[] rez = costs.split(",");
-        System.out.println(Arrays.toString(rez));
         Integer start = Integer.valueOf(rez[0]);
         Integer end = Integer.valueOf(rez[1]);
-        System.out.println("START="+start+", END="+end);
         List<Long> goodsIds = new ArrayList<>();
         for (Goods goods1 : goodses) {
             goodsIds.add(goods1.getId());
@@ -221,7 +202,6 @@ public class GoodsRepository {
         crit2.add(Restrictions.in("id", goodsIds));
         crit2.add(Restrictions.between("price", s, e));
         result = crit2.list();
-        System.out.println("result="+result);
         return result;
     }
 
@@ -262,7 +242,6 @@ public class GoodsRepository {
         crit3.setProjection(Projections.min("price"));
         r = (BigDecimal) crit3.uniqueResult();
         result = r.intValue();
-        System.out.println("///////////////////////res=" + result);
         return result;
     }
 
