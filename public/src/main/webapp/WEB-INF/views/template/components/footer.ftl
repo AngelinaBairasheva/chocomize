@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="endedCategories" type="java.util.List<com.springapp.mvc.api.domain.Categories>" -->
+<#-- @ftlvariable name="endedCategories" type="java.util.List<com.springapp.mvc.api.domain.Category>" -->
 <div class="footer">
     <div class="footer-top">
         <div class="wrap">
@@ -38,13 +38,14 @@
                     <div class="section group example">
                         <div class="col_1_of_f_2 span_1_of_f_2">
                             <h3>Information</h3>
-                            <ul class="f-list1">
-                                <li><a href="#">Duis autem vel eum iriure </a></li>
-                                <li><a href="#">anteposuerit litterarum formas </a></li>
-                                <li><a href="#">Tduis dolore te feugait nulla</a></li>
-                                <li><a href="#">Duis autem vel eum iriure </a></li>
-                                <li><a href="#">anteposuerit litterarum formas </a></li>
-                                <li><a href="#">Tduis dolore te feugait nulla</a></li>
+                            <ul class="f-list1" style="color: white;">
+                                    <li>Premium, fair trade certified Belgian chocolate</li>
+                                    <li>600 million possible combinations</li>
+                                    <li>Made fresh to order in NYC</li>
+                                    <li>For orders over $40 shipping is on us!&nbsp;(US only)</li>
+                                    <li>Orders arrive within approx. 4 business days <span>(US only)</span></li>
+                                    <li>The perfect gift for any occasion</li>
+                                    <li>Logos &amp; pictures on your chocolate bars for bulk orders over 50 bars</li>
                             </ul>
                         </div>
                         <div class="col_1_of_f_2 span_1_of_f_2">
@@ -55,16 +56,8 @@
                                 <p>Russia</p>
                                 <p>Phone:(00) 222 666 444</p>
                                 <p>Fax: (000) 000 00 00 0</p>
-                                <p>Email: <span>mail[at]chocomize.com</span></p>
+                                <p>Email: <span>chockomize.shop@gmail.com</span></p>
 
-                            </div>
-                            <div class="social-media">
-                                <ul>
-                                    <li> <span class="simptip-position-bottom simptip-movable" data-tooltip="Google"><a href="#" target="_blank"> </a></span></li>
-                                    <li><span class="simptip-position-bottom simptip-movable" data-tooltip="Linked in"><a href="#" target="_blank"> </a> </span></li>
-                                    <li><span class="simptip-position-bottom simptip-movable" data-tooltip="Rss"><a href="#" target="_blank"> </a></span></li>
-                                    <li><span class="simptip-position-bottom simptip-movable" data-tooltip="Facebook"><a href="#" target="_blank"> </a></span></li>
-                                </ul>
                             </div>
                         </div>
                         <div class="clear"></div>
@@ -76,15 +69,12 @@
     </div>
     <div class="footer-bottom">
         <div class="wrap">
-            <div class="copy">
+            <div class="copy" style="color: white;">
                 <p><address>© 2016 Chocomize Inc.  All rights reserved.</address></p>
             </div>
             <div class="f-list2">
                 <ul>
-                    <li class="active"><a href="about.html">About Us</a></li> |
-                    <li><a href="delivery.html">Delivery & Returns</a></li> |
-                    <li><a href="delivery.html">Terms & Conditions</a></li> |
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li class="active"><a href="/about">About Us</a></li>
                 </ul>
             </div>
             <div class="clear"></div>

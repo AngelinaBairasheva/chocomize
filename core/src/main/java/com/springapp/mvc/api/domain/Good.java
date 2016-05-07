@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-public class Goods {
+public class Good {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,7 +27,7 @@ public class Goods {
     private Integer weight;
     private String packaging;  //упаковка
     private String pfc; //белки жиры углеводы
-    private String bulk_orders; //для фильтра по событию: корпоратив, д/р, свадьба
+    private String bulk_orders;
     @OneToMany(cascade = CascadeType.REFRESH,
             fetch = FetchType.LAZY,
             mappedBy = "good")
@@ -36,9 +36,9 @@ public class Goods {
             (cascade = {CascadeType.REFRESH},
                     fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    private Categories category;
+    private Category category;
 
-    public Goods() {
+    public Good() {
     }
 
     public String getPfc() {
@@ -51,9 +51,9 @@ public class Goods {
 
 
 
-    public Goods(Long id, String name, BigDecimal price, Integer count, String size, String image, String description,
-                 String vendor_code, String brand, Integer calories, String composition, Integer weight, String packaging,
-                 Categories category, String pfc) {
+    public Good(Long id, String name, BigDecimal price, Integer count, String size, String image, String description,
+                String vendor_code, String brand, Integer calories, String composition, Integer weight, String packaging,
+                Category category, String pfc) {
         this.pfc = pfc;
         this.id = id;
         this.name = name;
@@ -87,9 +87,9 @@ public class Goods {
         this.name = name;
     }
 
-    public Goods(Long id, String name, BigDecimal price, Integer count, String image, String vendor_code,
-                 Integer calories, String composition, Integer weight, String packaging,
-                 Categories category, String size, String brand, Integer cal, String pfc, String bulk_orders) {
+    public Good(Long id, String name, BigDecimal price, Integer count, String image, String vendor_code,
+                Integer calories, String composition, Integer weight, String packaging,
+                Category category, String size, String brand, Integer cal, String pfc, String bulk_orders) {
         this.id = id;
         this.name = name;
         this.size = size;
@@ -108,9 +108,9 @@ public class Goods {
         this.category = category;
     }
 
-    public Goods(Long id, String name, BigDecimal price, Integer count, String image, String vendor_code,
-                 Integer calories, String composition, Integer weight, String packaging,
-                 Categories category, String size, String brand, Integer cal, String pfc) {
+    public Good(Long id, String name, BigDecimal price, Integer count, String image, String vendor_code,
+                Integer calories, String composition, Integer weight, String packaging,
+                Category category, String size, String brand, Integer cal, String pfc) {
         this.id = id;
         this.name = name;
         this.size = size;
@@ -128,9 +128,9 @@ public class Goods {
         this.category = category;
     }
 
-    public Goods(Long id, String name, BigDecimal price, Integer count, String image, String vendor_code,
-                 Integer calories, String composition, Integer weight, String packaging,
-                 Categories category) {
+    public Good(Long id, String name, BigDecimal price, Integer count, String image, String vendor_code,
+                Integer calories, String composition, Integer weight, String packaging,
+                Category category) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -144,9 +144,9 @@ public class Goods {
         this.category = category;
     }
 
-    public Goods(Long id, String name, BigDecimal price, String bulk_orders, Integer count, String image, String vendor_code,
-                 Integer calories, String composition, Integer weight, String packaging,
-                 Categories category) {
+    public Good(Long id, String name, BigDecimal price, String bulk_orders, Integer count, String image, String vendor_code,
+                Integer calories, String composition, Integer weight, String packaging,
+                Category category) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -257,11 +257,11 @@ public class Goods {
         this.carts = carts;
     }
 
-    public Categories getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Categories category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -271,5 +271,16 @@ public class Goods {
 
     public void setBulk_orders(String bulk_orders) {
         this.bulk_orders = bulk_orders;
+    }
+
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", count=" + count +
+                ", brand='" + brand + '\'' +
+                '}';
     }
 }

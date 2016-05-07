@@ -1,6 +1,7 @@
 package com.springapp.mvc.api.service;
 
 import com.springapp.mvc.api.domain.CartInfo;
+import com.springapp.mvc.api.domain.Good;
 import com.springapp.mvc.api.util.Constants;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +31,12 @@ public class CartInfoService {
                 cart.getGoods().put(goodId, count);
             }
         }
-        System.out.println("CART_SIZE="+cart.getGoods().size());
+        System.out.println("goodId="+goodId);
+        System.out.println("CART_SIZE="+cart.getGoods().keySet());
         session.setAttribute(Constants.SESSION_CART, cart);
+    }
+    public CartInfo getCartInfo(HttpSession session){
+        return  (CartInfo) session.getAttribute(Constants.SESSION_CART);
     }
     public void deleteGood(HttpSession session, Long goodId) {
         CartInfo cart = (CartInfo) session.getAttribute(Constants.SESSION_CART);
@@ -59,5 +64,22 @@ public class CartInfoService {
         System.out.println("CART_SIZE=" + cart.getGoods().size());
         session.setAttribute(Constants.SESSION_CART, cart);
     }
+public static Good getGood(HttpSession session,Long good_id){
+    GoodsService goodsService=new GoodsService();
+    CartInfo cartInfo = (CartInfo) session.getAttribute(Constants.SESSION_CART);
+    for(Long id:cartInfo.getGoods().keySet()){
+        if(id==good_id){
+            System.out.println("id="+id+", good_id="+good_id);
+            System.out.println("///////////getGood"+good_id);
+            System.out.println("getAll="+goodsService.getAllGoods());
 
+            Good good;
+            good=goodsService.getGoodsById(id);
+
+            System.out.println(good);
+            return good;
+        }
+    }
+    return null;
+}
 }

@@ -21,7 +21,6 @@ public class AddressRepository {
     public Address getAddressById(Long id) {
         return (Address) sessionFactory.getCurrentSession().load(Address.class, id);
     }
-
     public void deleteAddress(Address address) {
         sessionFactory.getCurrentSession().delete(address);
     }

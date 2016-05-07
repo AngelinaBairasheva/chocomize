@@ -1,11 +1,12 @@
 package com.springapp.mvc.api.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "t_user")
-public class Users {
+public class User implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,7 +15,7 @@ public class Users {
     private String hash_password;
     @Column(length = 50, unique = true, nullable = false)
     private String login;
-    private String avatar;
+    private String avatar="resources/i/avatar_720-vflYJnzBZ.png";
     @Column(name = "name", nullable = false)
     private String name;
     @Column(name = "secondName", nullable = false)
@@ -23,32 +24,16 @@ public class Users {
     private String middleName;
     private String phone;
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     /**
      * Флаг, что пользователь подтвержден и активен.
      */
-    @Column(nullable = false)
-    private Boolean enabled;
+    @Column
+    private Boolean enabled=false;
     /**
      * Уникальный ключ для подтверждения пользователя, отправляется по почте
      */
     @Column(unique = true)
-    private Long key;
+    private Long us_key;
     /**
      * Права доступа пользователя (возможные значения 'ROLE_USER', 'ROLE_ADMIN')
      */
@@ -60,16 +45,16 @@ public class Users {
     @OneToMany(cascade = CascadeType.REFRESH,
             fetch = FetchType.LAZY,
             mappedBy = "user")
-    private List<Orders> orderses;
+    private List<Order> orderses;
     @OneToMany(cascade = CascadeType.REFRESH,
             fetch = FetchType.LAZY,
             mappedBy = "user")
     private List<Cart> carts;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(String hash_passport, String login, String name, String secondName, String middleName, String phone, Boolean enabled) {
+    public User(String hash_passport, String login, String name, String secondName, String middleName, String phone, Boolean enabled) {
         this.hash_password = hash_passport;
         this.login = login;
         this.name = name;
@@ -79,7 +64,7 @@ public class Users {
         this.enabled = enabled;
     }
 
-    public Users(String hash_passport, String login, String avatar, String name, String secondName, String middleName, String phone, Boolean enabled, Long key, String role, List<Address> addresses) {
+    public User(String hash_passport, String login, String avatar, String name, String secondName, String middleName, String phone, Boolean enabled, Long key, String role, List<Address> addresses) {
         this.hash_password = hash_passport;
         this.login = login;
         this.avatar = avatar;
@@ -88,12 +73,12 @@ public class Users {
         this.middleName = middleName;
         this.phone = phone;
         this.enabled = enabled;
-        this.key = key;
+        this.us_key = key;
         this.role = role;
         this.addresses = addresses;
     }
 
-    public Users(String hash_passport, String login, String avatar, String name, String secondName, String middleName, Boolean check, Long key) {
+    public User(String hash_passport, String login, String avatar, String name, String secondName, String middleName, Boolean check, Long key) {
         this.hash_password = hash_passport;
         this.login = login;
         this.avatar = avatar;
@@ -101,17 +86,17 @@ public class Users {
         this.secondName = secondName;
         this.middleName = middleName;
         this.enabled = check;
-        this.key = key;
+        this.us_key = key;
     }
 
-    public Users(String hash_passport, String login, String name, String secondName, String middleName, Boolean check, Long key) {
+    public User(String hash_passport, String login, String name, String secondName, String middleName, Boolean check, Long key) {
         this.hash_password = hash_passport;
         this.login = login;
         this.name = name;
         this.secondName = secondName;
         this.middleName = middleName;
         this.enabled = check;
-        this.key = key;
+        this.us_key = key;
     }
 
     public Long getId() {
@@ -132,6 +117,23 @@ public class Users {
 
     public String getLogin() {
         return login;
+    }
+
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void setLogin(String login) {
@@ -179,11 +181,11 @@ public class Users {
     }
 
     public Long getKey() {
-        return key;
+        return us_key;
     }
 
     public void setKey(Long key) {
-        this.key = key;
+        this.us_key = key;
     }
 
     public List<Address> getAddresses() {
@@ -194,11 +196,11 @@ public class Users {
         this.addresses = addresses;
     }
 
-    public List<Orders> getOrderses() {
+    public List<Order> getOrderses() {
         return orderses;
     }
 
-    public void setOrderses(List<Orders> orderses) {
+    public void setOrderses(List<Order> orderses) {
         this.orderses = orderses;
     }
 
@@ -222,7 +224,7 @@ public class Users {
                 ", middleName='" + middleName + '\'' +
                 ", phone='" + phone + '\'' +
                 ", enabled=" + enabled +
-                ", key=" + key +
+                ", key=" + us_key +
                 ", role='" + role + '\'' +
                 '}';
     }

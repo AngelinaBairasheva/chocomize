@@ -1,18 +1,21 @@
 <#-- @ftlvariable name="Session.cart" type="com.springapp.mvc.api.domain.CartInfo" -->
+<#-- @ftlvariable name="carts" type="java.util.List<com.springapp.mvc.api.domain.Cart>" -->
+<#assign sec=JspTaglibs["http://www.springframework.org/security/tags"]>
 <#include "../template/template.ftl">
+<#include "components/goodItem.ftl">
 <@mainTemplate title="Корзина"/>
 <#macro m_body>
     <#assign total=0>
+    <#assign count=0>
 <div class="mens">
     <div class="main">
         <div class="wrap">
-            <#if (Session.cart.goods)??>
+            <#if (Session.cart.goods)?has_content || carts?has_content>
                 <div class="main-container col1-layout">
                     <div class="main row clearfix">
                         <div class="col-main">
                             <div class="cart">
                                 <div>
-                                <#--<form action="/cart" method="post">-->
                                     <h1 class="shopingcart">Shopping Cart</h1>
 
                                     <div class="payment_checkout">
@@ -20,9 +23,6 @@
 
                                     <div id="listCart">
                                         <div class="fieldset_41" style="display:inline-block ; width:100% ;">
-                                            <!-- 2014.4.1 end -->
-                                            <!-- 2014.4.1 end -->
-
                                             <table id="shopping-cart-table" class="data-table cart-table">
 
                                                 <thead>
@@ -52,74 +52,26 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-
-                                                <!-- 2014.4.2 start -->
-
+                                                    <#if (Session.cart.goods)?has_content>
                                                     <#list Session.cart.goods?keys as goodId>
-                                                        <#list items as item>
+                                                        <#list Session.goodsList as item>
                                                             <#if goodId=item.id>
                                                                 <#assign good=item>
                                                             </#if>
                                                         </#list>
                                                         <#assign total=total+Session.cart.getCount(goodId)*good.price>
-                                                    <tr>
-                                                        <td class="td-image">
-                                                            <a href="/good/${good.id}" title="${good.name}"
-                                                               class="product-image"><img
-                                                                    src="${good.image}" width="200" height="200"
-                                                                    alt="${good.name}"/></a></td>
-                                                        <td class="td-name">
-
-                                                            <h2 class="product-name">
-
-                                                                <a href="/good/${good.id}">${good.name}</a>
-                                                            </h2>
-                                                        </td>
-                                                        <td class="a-center td-price">
-                                                            <span class="td-title">Unit Price</span>
-                                        <span class="cart-price">
-                                                                            <span class="price">${good.price}
-                                                                                rub.</span>
-                    </span>
-
-
-                                                        </td>
-                                                        <td class="a-center td-qty">
-                                                            <span class="td-title">Quantity</span>
-                                                            <select data-goodid="${good.id}" id="select_count">
-                                                                <#list 1..good.count as i>
-                                                                    <#if i=Session.cart.getCount(goodId)>
-                                                                        <option value="${i}" selected=selected>
-                                                                        ${i}            </option><#else>
-                                                                        <option value="${i}">
-                                                                        ${i}            </option>
-                                                                    </#if>
-                                                                </#list>
-                                                            </select>
-                                                        </td>
-                                                        <td class="a-center td-price">
-                                                            <span class="td-title">Subtotal</span>
-                                <span class="cart-price">
-
-                                                                        <span
-                                                                                class="price">${good.price
-                                                                        *Session.cart.getCount(goodId)}</span>
-                </span>
-                                                        </td>
-                                                        <td class="a-center td-delete">
-
-                                                            <a data-goodid="${goodId}"
-                                                               title="Remove item"
-                                                               class="button deleteGood button cart_delete">Delete</a>
-                                                        </td>
-                                                    </tr>
+                                                        <@goodItem good=good count=Session.cart.getCount(goodId)/>
                                                     </#list>
+                                                <#else>
+                                                        <#list Session.carts as cart>
+                                                        <#assign count=count+cart.count>
+                                                            <#assign total=total+cart.count*cart.good.price>
+                                                            <@goodItem good=cart.good count=cart.count/>
+                                                        </#list>
+                                                    </#if>
                                                 </tbody>
                                             </table>
-
                                         </div>
-
-                                        <!-- 2014.4.2 start -->
                                         <div class="card_position42">
                                             <div class="card_position_content">
                                                 <div class="cart-block cart-total">
@@ -136,18 +88,30 @@
                                                                 </p>
                                                             </td>
                                                             <td style="" class="a-right">
-                                                                <p class="cart">
+                                                                <p class="cart" style="text-align: right">
                                                                     <strong><span id="total"
                                                                                   class="price">${total}</span></strong>
                                                                 </p>
+
+                                                                <@sec.authorize access="isAuthenticated()">
+                                                                    <#if total!=0>
+                                                                        <div class="btn_form">
+                                                                            <form  action="/order" method="get">
+                                                                                <input hidden name="total_sum" value="${total}">
+                                                                                <input hidden name="total_count" value="${count}">
+                                                                                <input style="padding-right: 100px;padding-left: 100px"
+                                                                                       type="submit"
+                                                                                       value="Proceed to Checkout"
+                                                                                       class="js_proceedToCheckout"
+                                                                                       data-id="19">
+                                                                            </form>
+                                                                        </div></#if>
+                                                                </@sec.authorize>
                                                             </td>
                                                         </tr>
                                                         </tfoot>
-
                                                     </table>
-
                                                 </div>
-
                                                 <div class="clear"></div>
                                             </div>
                                             <div class="clear"></div>

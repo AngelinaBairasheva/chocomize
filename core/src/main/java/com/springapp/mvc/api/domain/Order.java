@@ -6,7 +6,8 @@ import java.util.Calendar;
 import java.util.List;
 
 @Entity
-public class Orders {
+@Table(name = "Orders")
+public class Order {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,14 +22,12 @@ public class Orders {
     private String status; //доставляется, ожидает получения, доставлен, получен
     @Column(length = 50, nullable = false)
     private String pay_type;
-
-
     @ManyToOne
 
             (cascade = {CascadeType.REFRESH},
-                    fetch = FetchType.LAZY)
+                    fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private Users user;
+    private User user;
     @ManyToOne
             (cascade = {CascadeType.REFRESH},
                     fetch = FetchType.LAZY)
@@ -36,14 +35,14 @@ public class Orders {
     private Address address;
     @ManyToMany
             (cascade = CascadeType.REFRESH,
-                    fetch = FetchType.LAZY)
+                    fetch = FetchType.EAGER)
     @JoinTable(name = "ORDERS_GOODS",
             joinColumns = @JoinColumn(name = "ORDER_ID"),
             inverseJoinColumns = @JoinColumn(name = "GOOD_ID"))
-    private List<Goods> goods;
-    public Orders(){}
+    private List<Good> goods;
+    public Order(){}
 
-    public Orders(Calendar create_time, BigDecimal total_sum, BigDecimal total_count, String status, String pay_type, Users user, Address address) {
+    public Order(Calendar create_time, BigDecimal total_sum, BigDecimal total_count, String status, String pay_type, User user, Address address) {
         this.create_time = create_time;
         this.total_sum = total_sum;
         this.total_count = total_count;
@@ -52,7 +51,7 @@ public class Orders {
         this.user = user;
         this.address = address;
     }
-    public Orders(Calendar create_time, BigDecimal total_sum, BigDecimal total_count, String pay_type, Users user, Address address) {
+    public Order(Calendar create_time, BigDecimal total_sum, BigDecimal total_count, String pay_type, User user, Address address) {
         this.create_time = create_time;
         this.total_sum = total_sum;
         this.total_count = total_count;
@@ -109,11 +108,11 @@ public class Orders {
         this.pay_type = pay_type;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -125,11 +124,20 @@ public class Orders {
         this.address = address;
     }
 
-    public List<Goods> getGoods() {
+    public List<Good> getGoods() {
         return goods;
     }
 
-    public void setGoods(List<Goods> goods) {
+    public void setGoods(List<Good> goods) {
         this.goods = goods;
+    }
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "id=" + id +
+                ", total_sum=" + total_sum +
+                ", total_count=" + total_count +
+                ", goods=" + goods +
+                '}';
     }
 }

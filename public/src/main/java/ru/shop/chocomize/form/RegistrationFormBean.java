@@ -3,36 +3,30 @@ package ru.shop.chocomize.form;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class RegistrationFormBean {
 
-    @NotEmpty(message = "Поле обязательно для заполнения")
+    @NotEmpty(message = "РџРѕР»Рµ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РґР»СЏ Р·Р°РїРѕР»РЅРµРЅРёСЏ")
+    @Pattern(regexp = "[A-Za-zРђ-РЇР°-СЏ]+",message = "Р’РІРµРґРёС‚Рµ РІРµСЂРЅРѕРµ РёРјСЏ")
     private String firstName;
-
-    @NotEmpty(message = "Поле обязательно для заполнения")
+    @NotEmpty(message = "РџРѕР»Рµ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РґР»СЏ Р·Р°РїРѕР»РЅРµРЅРёСЏ")
+    @Pattern(regexp = "[A-Za-zРђ-РЇР°-СЏ]+",message = "Р’РІРµРґРёС‚Рµ РІРµСЂРЅСѓСЋ С„Р°РјРёР»РёСЋ")
     private String lastName;
-    @NotEmpty(message = "Поле обязательно для заполнения")
+    @NotEmpty(message = "РџРѕР»Рµ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РґР»СЏ Р·Р°РїРѕР»РЅРµРЅРёСЏ")
+    @Pattern(regexp = "[A-Za-zРђ-РЇР°-СЏ]+",message = "Р’РІРµРґРёС‚Рµ РІРµСЂРЅРѕРµ РѕС‚С‡РµСЃС‚РІРѕ")
     private String middleName;
-    @NotEmpty(message = "Поле обязательно для заполнения")
+    @NotEmpty(message = "РџРѕР»Рµ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РґР»СЏ Р·Р°РїРѕР»РЅРµРЅРёСЏ")
     @Pattern(regexp = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}",
-            message = "Неверный формат email")
+            message = "РќРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ email")
     private String email;
-
-    @Pattern(regexp = "\\d{3,13}",
-            message = "Введите верный номер телефона")
+    @Pattern(regexp = "(\\d{6,13})*",
+            message = "Р’РІРµРґРёС‚Рµ РІРµСЂРЅС‹Р№ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°")
     private String phone;
-
-    @AssertTrue(message = "Примите условия договора")
-    private Boolean signIn;
-
-
-    @Size(min = 6, max = 20, message = "Пароль должен быть от 6 до 20 символов")
+    @Size(min = 6, max = 20, message = "РџР°СЂРѕР»СЊ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РѕС‚ 6 РґРѕ 20 СЃРёРјРІРѕР»РѕРІ")
     private String password;
 
-    @Size(min = 6, max = 20, message = "Пароль должен быть от 6 до 20 символов")
     private String confirmPassword;
 
     public RegistrationFormBean() {
@@ -44,18 +38,6 @@ public class RegistrationFormBean {
 
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
-    }
-
-    public RegistrationFormBean(String firstName, String lastName, String middleName, String email, String phone, Boolean signIn, String password, String confirmPassword) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
-
-        this.email = email;
-        this.phone = phone;
-        this.signIn = signIn;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
     }
 
     public String getFirstName() {
@@ -90,14 +72,6 @@ public class RegistrationFormBean {
         this.phone = phone;
     }
 
-    public Boolean getSignIn() {
-        return signIn;
-    }
-
-    public void setSignIn(Boolean signIn) {
-        this.signIn = signIn;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -121,7 +95,6 @@ public class RegistrationFormBean {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", signIn=" + signIn +
                 ", password='" + password + '\'' +
                 ", confirmPassword='" + confirmPassword + '\'' +
                 '}';

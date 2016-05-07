@@ -11,7 +11,7 @@ import ru.shop.chocomize.aspects.annotation.IncludeMenuInfo;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class MainPageController extends BaseController  {
+public class MainPageController {
 
     @Autowired
     private HttpServletRequest request;

@@ -1,45 +1,30 @@
 package ru.shop.chocomize.form;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
-/**
- * Created by SDS on 06.04.2016.
- */
+
 public class EditionAccountFormBean {
     @NotEmpty(message = "Поле обязательно для заполнения")
+    @Pattern(regexp = "[A-Za-zА-Яа-я]+",message = "Введите верное имя")
     private String firstName;
-
     @NotEmpty(message = "Поле обязательно для заполнения")
+    @Pattern(regexp = "[A-Za-zА-Яа-я]+",message = "Введите верное имя")
     private String lastName;
     @NotEmpty(message = "Поле обязательно для заполнения")
+    @Pattern(regexp = "[A-Za-zА-Яа-я]+",message = "Введите верное имя")
     private String middleName;
     @NotEmpty(message = "Поле обязательно для заполнения")
     @Pattern(regexp = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}",
             message = "Неверный формат email")
     private String email;
-
-    @Pattern(regexp = "\\d{3,13}",
+    @Pattern(regexp = "(\\d{6,13})*",
             message = "Введите верный номер телефона")
-    private String phone;
+    private String us_phone;
 
-    public String getCurrentPassword() {
-        return currentPassword;
-    }
-
-    public void setCurrentPassword(String currentPassword) {
-        this.currentPassword = currentPassword;
-    }
-
-    @Size(min = 6, max = 20, message = "Пароль должен быть от 6 до 20 символов")
-    private String currentPassword;
-    @Size(min = 6, max = 20, message = "Пароль должен быть от 6 до 20 символов")
-    private String password;
-
-    @Size(min = 6, max = 20, message = "Пароль должен быть от 6 до 20 символов")
-    private String confirmPassword;
+    private CommonsMultipartFile photo;
 
     public EditionAccountFormBean() {
     }
@@ -57,10 +42,7 @@ public class EditionAccountFormBean {
         this.lastName = lastName;
         this.middleName = middleName;
         this.email = email;
-        this.phone = phone;
-        this.currentPassword = currentPassword;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
+        this.us_phone = phone;
     }
 
     public String getFirstName() {
@@ -87,39 +69,29 @@ public class EditionAccountFormBean {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
     @Override
     public String toString() {
         return "RegistrationFormBean{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", password='" + password + '\'' +
-                ", confirmPassword='" + confirmPassword + '\'' +
+                ", phone='" + us_phone + '\'' +
                 '}';
+    }
+
+    public String getUs_phone() {
+        return us_phone;
+    }
+
+    public void setUs_phone(String us_phone) {
+        this.us_phone = us_phone;
+    }
+
+    public CommonsMultipartFile getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(CommonsMultipartFile photo) {
+        this.photo = photo;
     }
 }

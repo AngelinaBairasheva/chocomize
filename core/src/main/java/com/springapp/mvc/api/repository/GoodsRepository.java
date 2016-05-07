@@ -1,7 +1,7 @@
 package com.springapp.mvc.api.repository;
 
-import com.springapp.mvc.api.domain.Categories;
-import com.springapp.mvc.api.domain.Goods;
+import com.springapp.mvc.api.domain.Category;
+import com.springapp.mvc.api.domain.Good;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -21,71 +21,61 @@ public class GoodsRepository {
     private SessionFactory sessionFactory;
 
     @SuppressWarnings("unchecked")
-    public List<Goods> getAllGoods() {
-        return sessionFactory.getCurrentSession().createCriteria(Goods.class).list();
+    public List<Good> getAllGoods() {
+        return sessionFactory.getCurrentSession().createCriteria(Good.class).list();
     }
 
-    public void addGood(Goods goods) {
-        sessionFactory.getCurrentSession().save(goods);
+    public void addGood(Good good) {
+        sessionFactory.getCurrentSession().save(good);
     }
 
-    public void updateGood(Goods goods) {
-        sessionFactory.getCurrentSession().update(goods);
+    public void updateGood(Good good) {
+        sessionFactory.getCurrentSession().update(good);
     }
 
-    public void deleteGood(Goods goods) {
-        sessionFactory.getCurrentSession().delete(goods);
+    public void deleteGood(Good good) {
+        sessionFactory.getCurrentSession().delete(good);
     }
 
-    public List<Goods> getGoodsByCategorysId(Long id) {
-        List<Goods> result;
-        Categories categories;
-        Criteria crit = sessionFactory.getCurrentSession().createCriteria(Categories.class);
-        crit.add(Restrictions.like("id", id));
-        categories = (Categories) crit.uniqueResult();
-        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Goods.class);
-        crit2.add(Restrictions.like("category", categories));
-        crit2.addOrder(org.hibernate.criterion.Order.desc("id"));
-        result = crit2.list();
-        return result;
-    }
 
-    public List<Goods> sortGoodsBy(List<Goods> goodses, String type, String direction) {
-        List<Goods> result;
-        List<Long> goodsId = new ArrayList<>();
-        for (Goods goods1 : goodses) {
-            goodsId.add(goods1.getId());
-        }
-        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Goods.class);
-        crit2.add(Restrictions.in("id", goodsId));
-        if (type.equals("pstn")) {
-            if (direction.equals("asc")) {
-                crit2.addOrder(org.hibernate.criterion.Order.asc("id"));
-            } else {
-                crit2.addOrder(org.hibernate.criterion.Order.desc("id"));
+    public List<Good> sortGoodsBy(List<Good> goodses, String type, String direction) {
+        List<Good> result = null;
+        if (goodses != null && !goodses.isEmpty()) {
+            List<Long> goodsId = new ArrayList<>();
+            for (Good good1 : goodses) {
+                goodsId.add(good1.getId());
             }
-        }
-        if (type.equals("Name")) {
-            if (direction.equals("asc")) {
-                crit2.addOrder(org.hibernate.criterion.Order.asc("name"));
-            } else {
-                crit2.addOrder(org.hibernate.criterion.Order.desc("name"));
+            Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Good.class);
+            crit2.add(Restrictions.in("id", goodsId));
+            if (type.equals("pstn")) {
+                if (direction.equals("asc")) {
+                    crit2.addOrder(org.hibernate.criterion.Order.asc("id"));
+                } else {
+                    crit2.addOrder(org.hibernate.criterion.Order.desc("id"));
+                }
             }
-        }
-        if (type.equals("Price")) {
-            if (direction.equals("asc")) {
-                crit2.addOrder(org.hibernate.criterion.Order.asc("price"));
-            } else {
-                crit2.addOrder(org.hibernate.criterion.Order.desc("price"));
+            if (type.equals("Name")) {
+                if (direction.equals("asc")) {
+                    crit2.addOrder(org.hibernate.criterion.Order.asc("name"));
+                } else {
+                    crit2.addOrder(org.hibernate.criterion.Order.desc("name"));
+                }
             }
+            if (type.equals("Price")) {
+                if (direction.equals("asc")) {
+                    crit2.addOrder(org.hibernate.criterion.Order.asc("price"));
+                } else {
+                    crit2.addOrder(org.hibernate.criterion.Order.desc("price"));
+                }
+            }
+            result = crit2.list();
         }
-        result = crit2.list();
         return result;
     }
 
     public List<String> getGoodsBrands() {
         List<String> result;
-        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Goods.class);
+        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Good.class);
         crit2.add(Restrictions.isNotNull("brand"));
         crit2.setProjection(Projections.distinct(Projections.property("brand")));
         result = crit2.list();
@@ -94,23 +84,23 @@ public class GoodsRepository {
 
     public List<String> getGoodsDatas() {
         List<String> result;
-        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Goods.class);
+        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Good.class);
         crit2.setProjection(Projections.distinct(Projections.property("bulk_orders")));
         crit2.add(Restrictions.isNotNull("bulk_orders"));
         result = crit2.list();
         return result;
     }
 
-    public List<Goods> getGoodsByBrands(String brands, List<Goods> goodses) {
-        List<Goods> result;
-        if ( brands!=null && !brands.equals("[]")) {
+    public List<Good> getGoodsByBrands(String brands, List<Good> goodses) {
+        List<Good> result;
+        if (goodses != null && !goodses.isEmpty() && brands != null && !brands.equals("[]")) {
             String s = brands.replaceAll("[\\[\"\\]]", "");
             String[] b = s.split(",\\s*");
             List<Long> goodsIds = new ArrayList<>();
-            for (Goods goods1 : goodses) {
-                goodsIds.add(goods1.getId());
+            for (Good good1 : goodses) {
+                goodsIds.add(good1.getId());
             }
-            Criteria crit1 = sessionFactory.getCurrentSession().createCriteria(Goods.class);
+            Criteria crit1 = sessionFactory.getCurrentSession().createCriteria(Good.class);
             crit1.add(Restrictions.in("id", goodsIds));
             crit1.add(Restrictions.in("brand", b));
             result = crit1.list();
@@ -120,104 +110,102 @@ public class GoodsRepository {
         return result;
     }
 
-    public List<Goods> getGoodsByDatas(String data) {
-        List<Goods> result;
-        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Goods.class);
+    public List<Good> getGoodsByDatas(String data) {
+        List<Good> result;
+        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Good.class);
         crit2.add(Restrictions.like("bulk_orders", data));
         result = crit2.list();
         return result;
     }
 
-    public List<Goods> getGoodsByPage(List<Goods> goods, int page, int limit) {
-        List<Goods> result;
-        List<Goods> newGoods = new LinkedList<>();
-        List<Long> goodsId = new ArrayList<>();
-
-
-        int maxRez = limit * page;
-        int size = goods.size(); //���-�� ������� � ���������
-        int maxResult = limit;              //���-�� �������, �������������� �� ��������� ��������
-        if (size - limit * page <= 0) {
-            maxResult = size - limit * (page - 1);
+    public List<Good> getGoodsByPage(List<Good> goods, int page, int limit) {
+        List<Good> result = null;
+        if (goods != null && !goods.isEmpty()) {
+            List<Good> newGoods = new LinkedList<>();
+            int maxRez = limit * page;
+            int size = goods.size(); //���-�� ������� � ���������
+            int maxResult = limit;              //���-�� �������, �������������� �� ��������� ��������
+            if (size - limit * page <= 0) {
+                maxResult = size - limit * (page - 1);
+            }
+            //int r = maxRez - maxResult - 2;
+            /*if (r < 0) {
+                r = 0;
+                //maxRez;
+            }*/
+            int k = Math.min(maxRez, goods.size());
+            for (int i = limit * (page - 1); i < k; i++) {
+                newGoods.add(goods.get(i));
+            }
+            result = newGoods;
         }
-        int r = maxRez - maxResult - 2;
-        if (r < 0) {
-            r = 0;
-            //maxRez;
-        }
-        int k = Math.min(maxRez, goods.size());
-        for (int i = limit * (page - 1); i < k; i++) {
-            newGoods.add(goods.get(i));
-        }
-        result = newGoods;
         return result;
     }
 
-    public Goods getGoodsById(Long id) {
-        Goods result;
-        Criteria crit = sessionFactory.getCurrentSession().createCriteria(Goods.class);
+    public Good getGoodsById(Long id) {
+        Good result;
+        Criteria crit = sessionFactory.getCurrentSession().createCriteria(Good.class);
         crit.add(Restrictions.like("id", id));
-        result = (Goods) crit.uniqueResult();
+        result = (Good) crit.uniqueResult();
         return result;
     }
 
-    public List<Goods> getNewGoods() {
-        List<Goods> result;
-        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Goods.class);
+    public List<Good> getNewGoods() {
+        List<Good> result;
+        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Good.class);
         crit2.addOrder(org.hibernate.criterion.Order.desc("id"));
         crit2.setMaxResults(9);
         result = crit2.list();
         return result;
     }
 
-    public int getPagesCount(List<Goods> goodses, int limit) {
-        int result, size;
-        List<Long> goodsId = new ArrayList<>();
-        for (Goods goods1 : goodses) {
-            goodsId.add(goods1.getId());
-        }
-        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Goods.class);
-        crit2.add(Restrictions.in("id", goodsId));
-        size = crit2.list().size();
-        if (size % limit != 0) {
-            result = size / limit + 1;
-        } else {
-            result = size / limit;
+    public int getPagesCount(List<Good> goodses, int limit) {
+        int result = 0;
+        int size;
+        if (goodses != null && !goodses.isEmpty()) {
+            List<Long> goodsId = new ArrayList<>();
+            for (Good good1 : goodses) {
+                goodsId.add(good1.getId());
+            }
+            Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Good.class);
+            crit2.add(Restrictions.in("id", goodsId));
+            size = crit2.list().size();
+            if (size % limit != 0) {
+                result = size / limit + 1;
+            } else {
+                result = size / limit;
+            }
         }
         return result;
     }
 
-    public List<Goods> getGoodsByPrice(String costs, List<Goods> goodses) {
-        List<Goods> result;
+    public List<Good> getGoodsByPrice(String costs, List<Good> goodses) {
+        List<Good> result;
+        costs = costs.replaceAll("\"", "");
         String[] rez = costs.split(",");
         Integer start = Integer.valueOf(rez[0]);
         Integer end = Integer.valueOf(rez[1]);
         List<Long> goodsIds = new ArrayList<>();
-        for (Goods goods1 : goodses) {
-            goodsIds.add(goods1.getId());
+        for (Good good1 : goodses) {
+            goodsIds.add(good1.getId());
         }
         BigDecimal s = BigDecimal.valueOf(start);
         BigDecimal e = BigDecimal.valueOf(end);
-        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Goods.class);
+        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Good.class);
         crit2.add(Restrictions.in("id", goodsIds));
         crit2.add(Restrictions.between("price", s, e));
         result = crit2.list();
         return result;
     }
 
-    public Integer getMaxPrice(Long id) {
+    public Integer getMaxPrice(List<Good> goodList) {
         Integer result;
         BigDecimal r;
-        List<Long> goodsesIds;
-        Categories categories;
-        Criteria crit = sessionFactory.getCurrentSession().createCriteria(Categories.class);
-        crit.add(Restrictions.like("id", id));
-        categories = (Categories) crit.uniqueResult();
-        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Goods.class);
-        crit2.add(Restrictions.like("category", categories));
-        crit2.setProjection(Projections.distinct(Projections.property("id")));
-        goodsesIds = crit2.list();
-        Criteria crit3 = sessionFactory.getCurrentSession().createCriteria(Goods.class);
+        List<Long> goodsesIds = new ArrayList<>();
+        for (Good good : goodList) {
+            goodsesIds.add(good.getId());
+        }
+        Criteria crit3 = sessionFactory.getCurrentSession().createCriteria(Good.class);
         crit3.add(Restrictions.in("id", goodsesIds));
         crit3.setProjection(Projections.max("price"));
         r = (BigDecimal) crit3.uniqueResult();
@@ -225,19 +213,14 @@ public class GoodsRepository {
         return result;
     }
 
-    public Integer getMinPrice(Long id) {
+    public Integer getMinPrice(List<Good> goodList) {
         Integer result;
         BigDecimal r;
-        List<Long> goodsesIds;
-        Categories categories;
-        Criteria crit = sessionFactory.getCurrentSession().createCriteria(Categories.class);
-        crit.add(Restrictions.like("id", id));
-        categories = (Categories) crit.uniqueResult();
-        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Goods.class);
-        crit2.add(Restrictions.like("category", categories));
-        crit2.setProjection(Projections.distinct(Projections.property("id")));
-        goodsesIds = crit2.list();
-        Criteria crit3 = sessionFactory.getCurrentSession().createCriteria(Goods.class);
+        List<Long> goodsesIds = new ArrayList<>();
+        for (Good good : goodList) {
+            goodsesIds.add(good.getId());
+        }
+        Criteria crit3 = sessionFactory.getCurrentSession().createCriteria(Good.class);
         crit3.add(Restrictions.in("id", goodsesIds));
         crit3.setProjection(Projections.min("price"));
         r = (BigDecimal) crit3.uniqueResult();
@@ -245,5 +228,52 @@ public class GoodsRepository {
         return result;
     }
 
+    public List<Good> getGoodsByCategorysId(Long id) {
+        List<Category> temp = new ArrayList<>();
 
+        Criteria criteria12 = sessionFactory.getCurrentSession().createCriteria(Category.class);
+        criteria12.add(Restrictions.like("id", id));
+        Category category12 = (Category) criteria12.uniqueResult();
+
+        List<Good> result;
+        List<Category> children;
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Category.class);
+        criteria.add(Restrictions.like("parent", category12));
+        children = criteria.list();
+
+        if (!children.isEmpty()) {
+            temp = recursion(children);
+            res=new ArrayList<>();
+        } else {
+            temp.add(category12);
+        }
+        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Good.class);
+        if (temp.size() == 1) {
+            crit2.add(Restrictions.like("category", temp.get(0)));
+
+        } else {
+            crit2.add(Restrictions.in("category", temp));
+
+        }
+        crit2.addOrder(org.hibernate.criterion.Order.desc("id"));
+        result = crit2.list();
+        return result;
+    }
+
+    public static List<Category> res = new ArrayList<>();
+
+    private List<Category> recursion(List<Category> children) {
+        List<Category> ca;
+        for (Category cc : children) {
+            Criteria crite = sessionFactory.getCurrentSession().createCriteria(Category.class);
+            crite.add(Restrictions.like("parent", cc));
+            ca = crite.list();
+            if (ca.isEmpty()) {
+                res.add(cc);
+            } else {
+                recursion(ca);
+            }
+        }
+        return res;
+    }
 }

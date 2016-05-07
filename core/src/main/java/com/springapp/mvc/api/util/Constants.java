@@ -3,6 +3,8 @@ package com.springapp.mvc.api.util;
 public interface Constants {
 
     String ATTR_MAIN = "main/main";
+    String ATTR_CABINET_COMPONENT = "cabinet/components/password";
+    String ATTR_CABINET_ORDERS = "cabinet/components/orders";
     String ATTR_CATALOG = "catalog/catalogPage";
     String ATTR_ITEM = "good/goodPage";
     Integer ITEMS_LIMIT=6;
@@ -19,4 +21,6 @@ public interface Constants {
     String ATTR_CART_PAGE="cart/cartPage";
     String ATTR_ORDER_PAGE="order/orderPage";
     String ATTR_ORDER_REZ_PAGE="order/result";
+    String ATTR_ABOUT_PAGE="information/about";
+    String ATTR_ROLE_USER="ROLE_USER";
 }

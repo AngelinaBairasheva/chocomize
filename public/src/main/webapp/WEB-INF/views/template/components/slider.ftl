@@ -9,7 +9,7 @@
             <div class="slide_content">
                 <div class="slide_content_wrap">
                     <!-- Text title -->
-                    <h4 class="title"><strong><div style="font-size: 45px; color: #522629;">Corporate<br/>Chocolate Gifts</div></strong>
+                    <h4 class="title"><strong><div style="font-size: 45px; color: #FFF6F7;">Corporate<br/>Chocolate Gifts</div></strong>
                     </h4>
                     <!-- /Text title -->
 

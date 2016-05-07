@@ -29,11 +29,11 @@ a{text-decoration:none;}
 nav.vertical ul li{	display:block;}/* vertical menu */
 nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
-/*end reset*/
 body{
 	font-family: 'Exo 2', sans-serif;
 	background:#fff;
 }
+
 .wrap{
 	width:80%;
 	margin:0 auto;
@@ -674,7 +674,7 @@ ul.f-list span.f-text {
 	background: -webkit-linear-gradient(top,  rgba(57,160,185,1) 0%,rgba(57,160,185,1) 100%);
 	background: -o-linear-gradient(top,  rgba(57,160,185,1) 0%,rgba(57,160,185,1) 100%);
 	background: -ms-linear-gradient(top,  rgba(57,160,185,1) 0%,rgba(57,160,185,1) 100%);
-	background: linear-gradient(to bottom,  rgba(57,160,185,1) 0%,rgba(57,160,185,1) 100%);
+	background: linear-gradient(to bottom, #5ACEEA ,rgba(57,160,185,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#39a0b9', endColorstr='#39a0b9',GradientType=0 );
 }
 .span_1_of_f_2  h3{
@@ -891,7 +891,7 @@ ul.f-list1 li a:hover {
 }
 /*--footer-bottom--*/
 .footer-bottom{
-	background:#0b4b5a;
+	background:#006982;
 	padding:2% 0;
 }
 .copy{
@@ -917,7 +917,7 @@ ul.f-list1 li a:hover {
 }
 .f-list2 li a{
 	color:#87D8EB;
-	font-size:0.8125em;
+	font-size:1em;
 }
 .f-list2 li a:hover{
 	color:#fff;
@@ -1030,8 +1030,43 @@ table {
 	border-top:1px solid #ddd;
 	padding:2% 0;
 }
+button.blue {
+	position: absolute;
+	display: inline-block;
+	text-decoration: none;
+	cursor: pointer;
+	background: rgb(48, 120, 162);
+	font-size: 0.95;
+	line-height: 16px;
+	text-transform: uppercase;
+	padding: 10px 30px;
+	color: #FFF;
+	border: none;
+	float: left;
+	font-family: 'Exo 2', sans-serif;
+	outline: none;
+}
+button.red {
+	display: inline-block;
+	text-decoration: none;
+	cursor: pointer;
+	background: #944B4B;
+	font-size: 0.95;
+	line-height: 16px;
+	text-transform: uppercase;
+	padding: 10px 30px;
+	color: #FFF;
+	border: none;
+	float: left;
+	font-family: 'Exo 2', sans-serif;
+	outline: none;
+}
 .register_account table td {
-	width: 100%;
+	text-align: center;
+}
+td.td-image {
+	text-align: left!important;
+	/*width: 300px;*/
 }
 .register_account form input[type="text"], .register_account form select {
 	font-size:0.95em;
@@ -2582,7 +2617,7 @@ ul.delivery-list li a:hover{
 		width: 90%;
 	}
 	.footer-top {
-		background: #4cb1ca;
+		background: #5ACEEA!important;
 		padding: 1em 0;
 	}
 }

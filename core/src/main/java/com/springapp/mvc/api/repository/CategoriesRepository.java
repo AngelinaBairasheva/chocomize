@@ -1,6 +1,6 @@
 package com.springapp.mvc.api.repository;
 
-import com.springapp.mvc.api.domain.Categories;
+import com.springapp.mvc.api.domain.Category;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -17,53 +17,54 @@ public class CategoriesRepository {
     private SessionFactory sessionFactory;
 
     @SuppressWarnings("unchecked")
-    public List<Categories> getAllCategories() {
-        return sessionFactory.getCurrentSession().createCriteria(Categories.class).list();
+    public List<Category> getAllCategories() {
+        return sessionFactory.getCurrentSession().createCriteria(Category.class).list();
     }
 
-    public void addCategory(Categories category) {
+    public void addCategory(Category category) {
         sessionFactory.getCurrentSession().save(category);
     }
 
-    public void updateCategory(Categories category) {
+    public void updateCategory(Category category) {
         sessionFactory.getCurrentSession().update(category);
     }
 
-    public Categories getCategoryById(Long id) {
-        return (Categories) sessionFactory.getCurrentSession().load(Categories.class, id);
+    public Category getCategoryById(Long id) {
+        return (Category) sessionFactory.getCurrentSession().load(Category.class, id);
     }
 
-    public void deleteCategory(Categories category) {
+    public void deleteCategory(Category category) {
         sessionFactory.getCurrentSession().delete(category);
     }
-    public List<Categories> getEndedCategories() {
-        List<Categories> result;
-        List<String> parentsNames=new ArrayList<>();
-        Criteria crit = sessionFactory.getCurrentSession().createCriteria(Categories.class);
+    public List<Category> getEndedCategories() {
+        List<Category> result;
+        List<Long> parentsIds=new ArrayList<>();
+        Criteria crit = sessionFactory.getCurrentSession().createCriteria(Category.class);
+        crit.add(Restrictions.isNotNull("parent"));
         crit.setProjection(Projections.distinct(Projections.property("parent")));
-        List<Categories> parents=crit.list();
-        for(Categories categories:parents){
-            if(categories!=null)
-            parentsNames.add(categories.getName());
+        List<Category> parents=crit.list();
+        for(Category category :parents){
+            if(category !=null)
+                parentsIds.add(category.getId());
         }
-        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Categories.class);
-        crit2.add(Restrictions.not(Restrictions.in("name", parentsNames)));
+        Criteria crit2 = sessionFactory.getCurrentSession().createCriteria(Category.class);
+        crit2.add(Restrictions.not(Restrictions.in("id", parentsIds)));
         result=crit2.list();
         return result;
     }
-    public List<Categories> getRootCategories() {
-        List<Categories> categories;
-        Criteria crit = sessionFactory.getCurrentSession().createCriteria(Categories.class);
+    public List<Category> getRootCategories() {
+        List<Category> categories;
+        Criteria crit = sessionFactory.getCurrentSession().createCriteria(Category.class);
         crit.add(Restrictions.isNull("parent"));
         crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         categories =  crit.list();
         return categories;
     }
-    public Categories getCategoryByName(String name) {
-        Categories result;
-        Criteria crit = sessionFactory.getCurrentSession().createCriteria(Categories.class);
+    public Category getCategoryByName(String name) {
+        Category result;
+        Criteria crit = sessionFactory.getCurrentSession().createCriteria(Category.class);
         crit.add(Restrictions.like("name", name));
-        result=(Categories) crit.uniqueResult();
+        result=(Category) crit.uniqueResult();
         return result;
     }
 }

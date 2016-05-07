@@ -7,9 +7,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script type="text/javascript" src="/resources/js/jquery-1.6.1.min.js"></script>
     <script type="text/javascript" src="/resources/js/jquery.ui-slider.js"></script>
-    <#--<script type="text/javascript" src="/resources/js/jquery.main.js"></script>-->
     <script type="text/javascript" src="/resources/js/jquery.jscrollpane.min.js"></script>
-    <script type="text/javascript" src="/resources/js/own/catalog.js"></script>
+    <script type="text/javascript" src="/resources/js/own/main.js"></script>
     <link href="/resources/i/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link href="/resources/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="/resources/css/styles.css" rel="stylesheet" type="text/css" media="all" />

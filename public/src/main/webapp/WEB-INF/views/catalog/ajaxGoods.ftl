@@ -1,27 +1,11 @@
 <#include "components/catalogToolbar.ftl">
-<#if items?? && items?has_content>
+<#include "components/goodView.ftl">
+<#if items?has_content>
 <#list items as good>
     <#if good_index%3==0 >
     <div class="top-box"></#if>
     <div class="col_1_of_3 span_1_of_3">
-        <a href='/good/${good.id}?page=${currentPage}&limit=${limit}&sorttype=${sorttype}&dir=${dir}&brands=${brands}&costs=${costs}'>
-            <div class="inner_content clearfix">
-                <div class="product_image">
-                    <img src="${good.image}" alt=""/>
-                </div>
-                <div class="price">
-                    <div class="cart-left">
-                        <p class="title">${good.name}</p>
-
-                        <div class="price1">
-                            <span class="actual">${good.price} руб.</span>
-                        </div>
-                    </div>
-                    <div class="cart-right"></div>
-                    <div class="clear"></div>
-                </div>
-            </div>
-        </a>
+        <@goodView good=good/>
     </div>
     <#if (good_index+1)%3==0>
         <div class="clear"></div></div></#if>

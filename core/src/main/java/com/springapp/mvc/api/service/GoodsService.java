@@ -1,6 +1,6 @@
 package com.springapp.mvc.api.service;
 
-import com.springapp.mvc.api.domain.Goods;
+import com.springapp.mvc.api.domain.Good;
 import com.springapp.mvc.api.repository.GoodsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,42 +14,42 @@ public class GoodsService {
     private GoodsRepository goodsRepository;
 
     @Transactional
-    public void addGood(Goods goods) {
-        goodsRepository.addGood(goods);
+    public void addGood(Good good) {
+        goodsRepository.addGood(good);
     }
 
     @Transactional
-    public List<Goods> getGoodsByBrands(String brand,List<Goods> goodses) {
+    public List<Good> getGoodsByBrands(String brand,List<Good> goodses) {
         return goodsRepository.getGoodsByBrands(brand,goodses);
     }
     @Transactional
-    public List<Goods> getGoodsByDatas(String data) {
+    public List<Good> getGoodsByDatas(String data) {
         return goodsRepository.getGoodsByDatas(data);
     }
     @Transactional
-    public List<Goods> getAllGoods() {
+    public List<Good> getAllGoods() {
         return goodsRepository.getAllGoods();
     }
     @Transactional
-    public int getPagesCount(List<Goods> goodses,int limit) {
+    public int getPagesCount(List<Good> goodses,int limit) {
         return goodsRepository.getPagesCount(goodses,limit);
     }
 
     @Transactional
-    public void updateGood(Goods goods) {
-        goodsRepository.updateGood(goods);
+    public void updateGood(Good good) {
+        goodsRepository.updateGood(good);
     }
 
     @Transactional
-    public void deleteGood(Goods goods) {
-        goodsRepository.deleteGood(goods);
+    public void deleteGood(Good good) {
+        goodsRepository.deleteGood(good);
     }
     @Transactional
-     public List<Goods> getGoodsByCategorysId(Long id) {
+     public List<Good> getGoodsByCategorysId(Long id) {
         return goodsRepository.getGoodsByCategorysId(id);
     }
     @Transactional
-    public List<Goods> sortGoods(List<Goods> goodses, String type,String direction) {
+    public List<Good> sortGoods(List<Good> goodses, String type,String direction) {
         return goodsRepository.sortGoodsBy(goodses,type,direction);
     }
     @Transactional
@@ -61,27 +61,27 @@ public class GoodsService {
         return goodsRepository.getGoodsDatas();
     }
     @Transactional
-    public List<Goods> getGoodsByPage(List<Goods> goods, int page, int limit) {
+    public List<Good> getGoodsByPage(List<Good> goods, int page, int limit) {
         return goodsRepository.getGoodsByPage(goods,page,limit);
     }
     @Transactional
-    public Goods getGoodsById(Long id) {
+    public Good getGoodsById(Long id) {
         return goodsRepository.getGoodsById(id);
     }
     @Transactional
-    public List<Goods> getNewGoods() {
+    public List<Good> getNewGoods() {
         return goodsRepository.getNewGoods();
     }
     @Transactional
-    public List<Goods> getGoodsByPrice(String costs, List<Goods>goodses) {
+    public List<Good> getGoodsByPrice(String costs, List<Good>goodses) {
         return goodsRepository.getGoodsByPrice(costs, goodses);
     }
     @Transactional
-    public Integer getMaxPrice(Long id) {
-        return goodsRepository.getMaxPrice(id);
+    public Integer getMaxPrice(List<Good> goodList) {
+        return goodsRepository.getMaxPrice(goodList);
     }
     @Transactional
-    public Integer getMinPrice(Long id) {
-        return goodsRepository.getMinPrice(id);
+    public Integer getMinPrice(List<Good> goodList) {
+        return goodsRepository.getMinPrice(goodList);
     }
 }

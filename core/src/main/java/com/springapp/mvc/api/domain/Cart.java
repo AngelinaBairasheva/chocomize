@@ -16,12 +16,12 @@ public class Cart {
             (cascade = {CascadeType.REFRESH},
                     fetch = FetchType.EAGER)
     @JoinColumn(name = "good_id")
-    private Goods good;
+    private Good good;
     @ManyToOne
             (cascade = {CascadeType.REFRESH},
                     fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private Users user;
+    private User user;
     public Cart(){}
 
     public Long getId() {
@@ -40,27 +40,37 @@ public class Cart {
         this.count = count;
     }
 
-    public Goods getGood() {
+    public Good getGood() {
         return good;
     }
 
-    public void setGood(Goods good) {
+    public void setGood(Good good) {
         this.good = good;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public Cart(Integer count, Goods good, Users user) {
+    public Cart(Integer count, Good good, User user) {
 
         this.count = count;
         this.good = good;
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", count=" + count +
+                ", good=" + good +
+                ", user=" + user +
+                '}';
     }
 }
 

@@ -1,5 +1,5 @@
-<#-- @ftlvariable name="newGoods" type="java.util.List<com.springapp.mvc.api.domain.Goods>" -->
-<#-- @ftlvariable name="macarons" type="java.util.List<com.springapp.mvc.api.domain.Goods>" -->
+<#-- @ftlvariable name="newGoods" type="java.util.List<com.springapp.mvc.api.domain.Good>" -->
+<#-- @ftlvariable name="macarons" type="java.util.List<com.springapp.mvc.api.domain.Good>" -->
 <#include "../template/template.ftl">
 <@mainTemplate title="Personalized Chocolate &amp; Custom Corporate Gifts | Chocomize" scripts=['js/jquery-ui.min.js',
 'js/jquery.main.js']/>
@@ -39,7 +39,7 @@
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
-        </div>
+    </div>
     </div>
     </div>
 </#macro>

@@ -2,9 +2,10 @@ $(document).ready(function () {
 
     $(document).on('click', '.js_moveOnPage', function () {
         var $this = $(this);
+        var brands = $this.data('brands');
         $.ajax({
             type: "POST",
-            url: "/catalog/showMore",
+            url: "/catalog/filter",
             data: {
                 id: $this.data('id'),
                 page: $this.data('page'),
@@ -12,9 +13,9 @@ $(document).ready(function () {
                 sorttype: $this.data('sorttype'),
                 dir: $this.data('dir'),
                 costs: $this.data('costs'),
-                brands: $this.data('brands')
+                brands: JSON.stringify(brands)
             }
-        }).done(function (data) {  // сюда приходит ответ при успехе
+        }).done(function (data) {
             //console.log(data);
             if (data != '') {
                 $("#goodsList").empty();
@@ -39,7 +40,7 @@ $(document).ready(function () {
             sorttype = $this.data('sorttype');
         $.ajax({
             type: "POST",
-            url: "/catalog/setLimit",
+            url: "/catalog/filter",
             data: {
                 id: $this.data('id'),
                 page: page,
@@ -47,9 +48,9 @@ $(document).ready(function () {
                 dir: dir,
                 sorttype: sorttype,
                 costs: $this.data('costs'),
-                brands: $this.data('brands')
+                brands: JSON.stringify($this.data('brands'))
             }
-        }).done(function (data) {  // сюда приходит ответ при успехе
+        }).done(function (data) {
             //console.log(data);
             if (data != '') {
                 $("#goodsList").empty();
@@ -61,7 +62,7 @@ $(document).ready(function () {
             } else {
                 $this.hide();
             }
-        }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
+        }).fail(function () {
             $this.hide();
             alert("Приносим извинения.<br/>На сервере произошла ошибка");
         });
@@ -75,29 +76,8 @@ $(document).ready(function () {
             data: {
                 goodId: $this.data('goodid'),
                 count: $value
-            }}).done(function (data) {  // сюда приходит ответ при успехе
-                //console.log(data);
-                if (data != '') {
-                    $('#listCart').empty();
-                    $('#listCart').append(data);
-                } else {
-                    $this.hide();
-                }
-        }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
-            $this.hide();
-            alert("Приносим извинения.<br/>На сервере произошла ошибка");
-        });
-    });
-    $(document).on("click", ".deleteGood", function () {
-        var $this = $(this);
-        alert("delete");
-        alert($this.data('goodid'));
-        $.ajax({
-            type: "POST",
-            url: "/cart/deleteGood",
-            data: {
-                goodId: $this.data('goodid')
-            }}).done(function (data) {  // сюда приходит ответ при успехе
+            }
+        }).done(function (data) {
             //console.log(data);
             if (data != '') {
                 $('#listCart').empty();
@@ -105,7 +85,28 @@ $(document).ready(function () {
             } else {
                 $this.hide();
             }
-        }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
+        }).fail(function () {
+            $this.hide();
+            alert("Приносим извинения.<br/>На сервере произошла ошибка");
+        });
+    });
+    $(document).on("click", ".deleteGood", function () {
+        var $this = $(this);
+        $.ajax({
+            type: "POST",
+            url: "/cart/deleteGood",
+            data: {
+                goodId: $this.data('goodid')
+            }
+        }).done(function (data) {
+            //console.log(data);
+            if (data != '') {
+                $('#listCart').empty();
+                $('#listCart').append(data);
+            } else {
+                $this.hide();
+            }
+        }).fail(function () {
             $this.hide();
             alert("Приносим извинения.<br/>На сервере произошла ошибка");
         });
@@ -118,7 +119,7 @@ $(document).ready(function () {
             sorttype = $this.data('sorttype');
         $.ajax({
             type: "POST",
-            url: "/catalog/setLimit",
+            url: "/catalog/filter",
             data: {
                 id: $this.data('id'),
                 page: page,
@@ -126,9 +127,9 @@ $(document).ready(function () {
                 dir: dir,
                 sorttype: sorttype,
                 costs: $this.data('costs'),
-                brands: $this.data('brands')
+                brands: JSON.stringify($this.data('brands'))
             }
-        }).done(function (data) {  // сюда приходит ответ при успехе
+        }).done(function (data) {
             //console.log(data);
             if (data != '') {
                 $("#goodsList").empty();
@@ -140,7 +141,7 @@ $(document).ready(function () {
             } else {
                 $this.hide();
             }
-        }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
+        }).fail(function () {
             $this.hide();
             alert("Приносим извинения.<br/>На сервере произошла ошибка");
         });
@@ -153,7 +154,7 @@ $(document).ready(function () {
         var dir = $this.data('dir');
         $.ajax({
             type: "POST",
-            url: "/catalog/sort",
+            url: "/catalog/filter",
             data: {
                 id: $this.data('id'),
                 page: page,
@@ -161,9 +162,9 @@ $(document).ready(function () {
                 sorttype: $values,
                 dir: dir,
                 costs: $this.data('costs'),
-                brands: $this.data('brands')
+                brands: JSON.stringify($this.data('brands'))
             }
-        }).done(function (data) {  // сюда приходит ответ при успехе
+        }).done(function (data) {
             //console.log(data);
             if (data != '') {
                 $("#goodsList").empty();
@@ -175,7 +176,7 @@ $(document).ready(function () {
             } else {
                 $this.hide();
             }
-        }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
+        }).fail(function () {
             $this.hide();
             alert("Приносим извинения.<br/>На сервере произошла ошибка");
         });
@@ -193,7 +194,7 @@ $(document).ready(function () {
         }
         $.ajax({
             type: "POST",
-            url: "/catalog/sort",
+            url: "/catalog/filter",
             data: {
                 id: $this.data('id'),
                 page: $this.data('page'),
@@ -201,9 +202,9 @@ $(document).ready(function () {
                 sorttype: $this.data('sorttype'),
                 dir: $dir,
                 costs: $this.data('costs'),
-                brands: $this.data('brands')
+                brands: JSON.stringify($this.data('brands'))
             }
-        }).done(function (data) {  // сюда приходит ответ при успехе
+        }).done(function (data) {
             //console.log(data);
             if (data != '') {
                 $("#goodsList").empty();
@@ -215,7 +216,7 @@ $(document).ready(function () {
             } else {
                 $this.hide();
             }
-        }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
+        }).fail(function () {
             $this.hide();
             alert("Приносим извинения.<br/>На сервере произошла ошибка");
         });
@@ -228,7 +229,7 @@ $(document).ready(function () {
         var str = $('input#radioPrice:checked').val();
         $.ajax({
             type: "POST",
-            url: "/catalog/selectByPrice",
+            url: "/catalog/filter",
             data: {
                 id: $this.data('id'),
                 page: page,
@@ -236,9 +237,9 @@ $(document).ready(function () {
                 sorttype: $this.data('sorttype'),
                 dir: dir,
                 costs: str,
-                brands: $this.data('brands')
+                brands: JSON.stringify($this.data('brands'))
             }
-        }).done(function (data) {  // сюда приходит ответ при успехе
+        }).done(function (data) {
             //console.log(data);
             if (data != '') {
                 $("#goodsList").empty();
@@ -248,7 +249,7 @@ $(document).ready(function () {
             } else {
                 $this.hide();
             }
-        }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
+        }).fail(function () {
             $this.hide();
             alert("Приносим извинения.<br/>На сервере произошла ошибка");
         });
@@ -265,7 +266,7 @@ $(document).ready(function () {
         var strJson = JSON.stringify(selectedItems);
         $.ajax({
             type: "POST",
-            url: "/catalog/selectByBrands",
+            url: "/catalog/filter",
             data: {
                 id: $this.data('id'),
                 page: page,
@@ -275,8 +276,7 @@ $(document).ready(function () {
                 costs: $this.data('costs'),
                 brands: strJson
             }
-        }).done(function (data) {  // сюда приходит ответ при успехе
-            //console.log(data);
+        }).done(function (data) {
             if (data != '') {
                 $('input#radioPrice').removeAttr('data-brands');
                 $('input#radioPrice').attr('data-brands', strJson);
@@ -285,45 +285,105 @@ $(document).ready(function () {
             } else {
                 $this.hide();
             }
-        }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
+        }).fail(function () {
             $this.hide();
             alert("Приносим извинения.<br/>На сервере произошла ошибка");
         });
     });
 
     $(document).on('click', '.js_addToCart', function () {
-        // alert(3);
         event.preventDefault();
         var $this = $(this);
+        var r='#remark'+$this.data('id');
         $.ajax({
             type: 'POST',
             url: '/cart/add',
             data: {goodId: $this.data('id')},
-            success: function (data, status) {  // успешное завершение работы
+            success: function (data, status) {
                 console.log('/cart/add result: data=' + data + '; status=' + status);
                 if (data == 'ok') {
+                    $(r).empty();
+                    $(r).append('<div class="sale-box"><span class="on_sale title_shop">In Shop Cart</span></div>');
+                    $this.empty('value');
+                    $this.attr('value', 'Go in cart');
                     $this.removeClass('js_addToCart').text('Go in cart').css('background', 'rgb(280, 124, 83)');
                 }
             },
-            error: function () {    // На сервере произошла ошибка
+            error: function () {
                 alert('Приносим извинения.<br/>На сервере произошла ошибка');
             }
         });
     });
+    $(document).on('change', 'input#change_password', function () {
+        var $this = $(this);
+        $.ajax({
+            type: "GET",
+            url: "/cabinet/edit"
+        }).done(function (data) {  // сюда приходит ответ при успехе
+            //console.log(data);
+            if (data != '') {
+                if ($this.attr("checked")) {
+                    $this.attr("checked", "checked");
+                    $("#changePassword").append(data);
 
-    /*  $(document).on('click', '.js_goodDetail', function () {
-     event.preventDefault();
-     $.ajax({
-     type: 'POST',
-     url: '/good/' + $(this).data('id'),
-     dataType: 'json',
-     success: function (data, status) {  // успешное завершение работы
-     alert(JSON.stringify(data, "", 4));
-     },
-     error: function (error) {    // На сервере произошла ошибка
-     alert('Приносим извинения.<br/>На сервере произошла ошибка<br/>' + error);
-     }
-     });
-     });*/
+                } else {
+                    $this.removeAttr("checked");
+                    $("#changePassword").empty();
+                }
+            } else {
+                $this.hide();
+            }
+        }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
+            $this.hide();
+            alert('Приносим извинения.<br/>На сервере произошла ошибка');
+        });
+    });
 
+    $(document).on('click', 'button#showOrders', function () {
+        var $this = $(this);
+        $.ajax({
+            type: "GET",
+            url: "/cabinet/orders"
+        }).done(function (data) {  // сюда приходит ответ при успехе
+            //console.log(data);
+            if (data != '') {
+                if ($this.attr("show")) {
+                    $this.removeAttr("show");
+                    $("#ordersList").empty();
+
+                } else {
+
+                    $this.attr("show", "true");
+                    $("#ordersList").append(data);
+                }
+            } else {
+                $this.hide();
+            }
+        }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
+            $this.hide();
+            alert('Приносим извинения.<br/>На сервере произошла ошибка');
+        });
+    });
+
+    $(document).on("click", ".deleteOrder", function () {
+        var $this = $(this);
+        $.ajax({
+            type: "POST",
+            url: "/order/deleteOrder",
+            data: {
+               orderId: $this.data('orderid')
+            }
+        }).done(function (data) {
+            //console.log(data);
+            if (data != '') {
+                $('#ordersList').empty();
+                $('#ordersList').append(data);
+            } else {
+                $this.hide();
+            }
+        }).fail(function () {
+            $this.hide();
+            alert("Приносим извинения.<br/>На сервере произошла ошибка");
+        });
+    });
 });

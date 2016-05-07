@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Categories {
+public class Category {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,62 +15,57 @@ public class Categories {
     private String alias;
     @Column(nullable = true)
     private String photo;
-    public Categories(Long id,String name, String alias, Categories parent, String photo) {
-        this.id=id;
-        this.name = name;
-        this.parent = parent;
-        this.photo=photo;
-        this.alias=alias;
-    }
-    public Categories(Long id,String name, String alias,  String photo) {
-        this.id=id;
-        this.name = name;
-        this.photo=photo;
-        this.alias=alias;
-    }
-    public Categories(Long id,String name, String alias,  Categories parent) {
-        this.id=id;
-        this.name = name;
-        this.parent = parent;
-        this.alias=alias;
-    }
-    public Categories(Long id,String name,String alias) {
-        this.id=id;
-        this.alias=alias;
-        this.name = name;
-    }
-    public Categories(Long id,String name, Categories parent){
-        this.id=id;
-        this.name = name;
-        this.parent = parent;
-    }
-public Categories(Long id,String name){
-    this.id=id;
-    this.name=name;}
-    @Override
-    public String toString() {
-        return "Categories{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
-
     @OneToMany(cascade = CascadeType.REFRESH,
             fetch = FetchType.EAGER,
             mappedBy = "parent")
 
-    private List<Categories> categories;
+    private List<Category> categories;
     @ManyToOne
             (cascade = {CascadeType.REFRESH},
                     fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_id")
-    private Categories parent;
+    private Category parent;
     @OneToMany(cascade = CascadeType.REFRESH,
             fetch = FetchType.LAZY,
             mappedBy = "category")
-    private List<Goods> goodses;
+    private List<Good> goodses;
+    public Category(Long id, String name, String alias, Category parent, String photo) {
+        this.id=id;
+        this.name = name;
+        this.parent = parent;
+        this.photo=photo;
+        this.alias=alias;
+    }
+    public Category(Long id, String name, String alias, String photo) {
+        this.id=id;
+        this.name = name;
+        this.photo=photo;
+        this.alias=alias;
+    }
+    public Category(Long id, String name, String alias, Category parent) {
+        this.id=id;
+        this.name = name;
+        this.parent = parent;
+        this.alias=alias;
+    }
+    public Category(Long id, String name, String alias) {
+        this.id=id;
+        this.alias=alias;
+        this.name = name;
+    }
+    public Category(Long id, String name, Category parent){
+        this.id=id;
+        this.name = name;
+        this.parent = parent;
+    }
+public Category(Long id, String name){
+    this.id=id;
+    this.name=name;}
 
-    public Categories() {
+
+
+
+    public Category() {
     }
 
 
@@ -106,28 +101,34 @@ public Categories(Long id,String name){
         this.alias = alias;
     }
 
-    public List<Categories> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<Categories> categories) {
+    public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
 
-    public Categories getParent() {
+    public Category getParent() {
         return parent;
     }
 
-    public void setParent(Categories parent) {
+    public void setParent(Category parent) {
         this.parent = parent;
     }
 
-    public List<Goods> getGoodses() {
+    public List<Good> getGoodses() {
         return goodses;
     }
 
-    public void setGoodses(List<Goods> goodses) {
+    public void setGoodses(List<Good> goodses) {
         this.goodses = goodses;
     }
-
+    @Override
+    public String toString() {
+        return "Categories{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

@@ -4,12 +4,10 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
-
 public class Mailing {
-    //    private final String username = "digitalzonelaboratory@gmail.com";
-//    private final String password = "digitalzone2014";
-    private final String username = "chockomize.shop@gmail.com";
+    private final String company_mail = "chockomize.shop@gmail.com";
     private final String password = "chocomizeshop";
+    private final String company_name = "Chocomize Shop";
 
     private boolean status = false;
 
@@ -17,11 +15,13 @@ public class Mailing {
         return status;
     }
 
+    public Mailing( ) {
+    }
+
     public void setStatus(boolean status) {
         this.status = status;
     }
-
-    public boolean sendMail(String fromEmail, String toEmail, String subject, String text) {
+    public boolean sendMail(String toEmail, String text) {
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
@@ -31,19 +31,17 @@ public class Mailing {
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
+                        return new PasswordAuthentication(company_mail, password);
                     }
                 });
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(fromEmail));
-// multiple recipients           InternetAddress[] address = {new InternetAddress(to)};
-//                               msg.setRecipients(Message.RecipientType.TO, address);
+            message.setFrom(new InternetAddress(company_mail));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(toEmail));
-            message.setSubject(subject);
-            message.setText(text);
+            message.setSubject(company_name);
+            message.setContent(text, "text/plain; charset=US-ASCII");
             Transport.send(message);
 
             return status = true;

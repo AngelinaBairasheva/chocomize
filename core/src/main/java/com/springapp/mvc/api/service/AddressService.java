@@ -15,4 +15,13 @@ public class AddressService {
     public void addAddress(Address address) {
         addressRepository.addAddress(address);
     }
+    @Transactional
+    public void updateAddress(Address address) {
+        addressRepository.updateAddress(address);
+    }
+    @Transactional
+    public Address getAddressById(Long id) {
+       return addressRepository.getAddressById( id);
+    }
+
 }

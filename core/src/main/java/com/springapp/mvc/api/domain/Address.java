@@ -4,36 +4,39 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "t_address")
 public class Address {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(length = 4)
+    @Column(nullable = false,length = 4)
     private Integer house;
-    @Column(length = 4)
+    @Column(nullable = false,length = 4)
     private Integer flat;
     @Column(nullable = false)
     private String city;
+    @Column(nullable = false)
     private String street;
-                      private String area;
-
-
-
-
-
+    @Column(nullable = false)
+    private String area;
+    @Column(nullable = false,length = 10)
+    private Integer ad_index;
     @ManyToOne
             (cascade = {CascadeType.REFRESH},
                     fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private Users user;
+    private User user;
     @OneToMany(cascade = CascadeType.REFRESH,
             fetch = FetchType.LAZY,
-            mappedBy="address")
-    private List<Orders> orderses;
-    public Address(){}
+            mappedBy = "address")
+    private List<Order> orderses;
 
-    public Address(Integer house, Integer flat, String city, String street,  String area, Users user) {
+    public Address() {
+    }
+
+    public Address(Integer index, Integer house, Integer flat, String city, String street, String area, User user) {
+        this.ad_index = index;
         this.house = house;
         this.flat = flat;
         this.city = city;
@@ -42,6 +45,14 @@ public class Address {
         this.user = user;
     }
 
+
+    public Integer getIndex() {
+        return ad_index;
+    }
+
+    public void setIndex(Integer index) {
+        this.ad_index = index;
+    }
     public Long getId() {
         return id;
     }
@@ -90,19 +101,34 @@ public class Address {
         this.area = area;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public List<Orders> getOrderses() {
+    public List<Order> getOrderses() {
         return orderses;
     }
 
-    public void setOrderses(List<Orders> orderses) {
+    public void setOrderses(List<Order> orderses) {
         this.orderses = orderses;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", house=" + house +
+                ", flat=" + flat +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", area='" + area + '\'' +
+                ", index=" + ad_index +
+                ", user=" + user +
+                ", orderses=" + orderses +
+                '}';
     }
 }

@@ -1,6 +1,6 @@
 package ru.shop.chocomize.security;
 
-import com.springapp.mvc.api.domain.Users;
+import com.springapp.mvc.api.domain.User;
 import com.springapp.mvc.api.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +16,7 @@ public class MyUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        Users userInfo = userService.getUserByLogin(login);
+        User userInfo = userService.getUserByLogin(login);
         if (userInfo == null) throw new UsernameNotFoundException("User with name " + login + " not found");
         return new MyUserDetail(userInfo);
     }

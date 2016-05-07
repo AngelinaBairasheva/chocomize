@@ -1,4 +1,5 @@
 <#-- @ftlvariable name="topGoods" type="java.util.List<com.springapp.mvc.common.GoodInfo>" -->
+<#assign sec=JspTaglibs["http://www.springframework.org/security/tags"]>
 <#include "../template/template.ftl">
 <@mainTemplate title="Авторизация" />
 <#macro m_body>
@@ -26,10 +27,11 @@
                             <input id="remember_me" name="_spring_security_remember_me" type="checkbox"/>
                             <label for="remember_me" class="inline">Remember me</label>
                         </div>
-                        <input type="submit" value="Login"/>
+                        <input type="submit" id="btnsubmit" value="Login"/>
                         <a href="/registration" style="margin-left: 15px;">Create an account</a>
 
                     </div>
+                    <div style="height: 20px"></div>
 
                 </div>
 

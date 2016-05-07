@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="item" type="com.springapp.mvc.api.domain.Goods" -->
+<#-- @ftlvariable name="item" type="com.springapp.mvc.api.domain.Good" -->
 <#include "../template/template.ftl">
 <@mainTemplate title="${item.name} - ${item.category.name} | Chocomize Bestsellers" />
 <#macro m_body>
@@ -13,6 +13,17 @@
                         <li>
                                 <img class="etalage_thumb_image img-holder" src="${item.image}" class="img-responsive" />
                                 <img class="etalage_source_image img-holder" src="${item.image}" class="img-responsive" title="${item.name}" />
+                            <#assign flag=false>
+                            <#if Session.carts?has_content>
+                                <#list Session.carts as cart1>
+                                    <#if cart1.good.id=item.id>
+                                        <#assign flag=true>
+                                        <#break >
+                                    </#if>
+                                </#list>
+                            </#if>
+                            <div id="remark${item.id}"><#if Session.cart?has_content&&Session.cart.containsGoodId(item.id) || flag>
+                                <div class="sale-box" style="padding-right: 30px;padding-top: 20px;"><span class="on_sale title_shop">In Shop Cart</span></div></#if></div>
                         </li>
                     </ul>
                     <div class="clearfix"></div>
@@ -20,10 +31,9 @@
                 <div class="  description" style="font-size: 15px;">
                     <h1>${item.name}</h1>
                     <p class="m_5">Rub. ${item.price} </p>
-                    <div class="btn_form">
-                        <form>
-                            <input type="submit" title="">
-                            <a style="" class="cart-right button js_addToCart" data-id="${item.id}" href="/cart"></a>
+                    <div class="btn_form" >
+                        <form action="/cart">
+                            <input type="submit" value="BUY NOW" class="js_addToCart" data-id="${item.id}" >
                         </form>
                     </div>
                         <div class="params">
@@ -76,7 +86,7 @@
                         </div>
                     </div>
                 </div>
-                    <a href='/catalog/${item.category.id}?page=${page}&limit=${limit}&sorttype=${sorttype}&dir=${dir}&brands=${brands}&costs=${costs}' class="back-link">Возврат в каталог</a></article>
+                    <a href='/catalog/${item.category.id}?page=${page!1}&limit=${limit!6}&sorttype=${sorttype!"pstn"}&dir=${dir!"asc"}&brands=${brands!"[]"}<#if costs??>&costs=${costs}</#if>' class="back-link">Вернуться в каталог</a></article>
                 <div class="clear"></div>
             </div>
 

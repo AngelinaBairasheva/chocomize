@@ -1,7 +1,7 @@
-<#-- @ftlvariable name="rootCategories" type="java.util.List<com.springapp.mvc.api.domain.Categories>" -->
-<#-- @ftlvariable name="endedCategories" type="java.util.List<com.springapp.mvc.api.domain.Categories>" -->
-<#-- @ftlvariable name="items" type="java.util.List<com.springapp.mvc.api.domain.Goods>" -->
-<#-- @ftlvariable name="catalog" type="com.springapp.mvc.api.domain.Categories" -->
+<#-- @ftlvariable name="rootCategories" type="java.util.List<com.springapp.mvc.api.domain.Category>" -->
+<#-- @ftlvariable name="endedCategories" type="java.util.List<com.springapp.mvc.api.domain.Category>" -->
+<#-- @ftlvariable name="items" type="java.util.List<com.springapp.mvc.api.domain.Good>" -->
+<#-- @ftlvariable name="catalog" type="com.springapp.mvc.api.domain.Category" -->
 <#-- @ftlvariable name="pagesCount" type="java.lang.Integer" -->
 <#-- @ftlvariable name="currentPage" type="java.lang.Integer" -->
 <#-- @ftlvariable name="limit" type="java.lang.Integer" -->
@@ -9,7 +9,9 @@
 <#-- @ftlvariable name="min" type="java.math.BigDecimal" -->
 <#-- @ftlvariable name="brands" type="java.util.List<java.lang.String>" -->
 <#-- @ftlvariable name="events" type="java.util.List<java.lang.String>" -->
+<#assign sec=JspTaglibs["http://www.springframework.org/security/tags"]>
 <#include "../template/template.ftl">
+<#include "components/goodView.ftl">
 <@mainTemplate title="${catalog.name} | Chocomize Bestsellers" />
 
 <#macro recursion1 p1>
@@ -36,26 +38,7 @@
                         <#if good_index%3==0 >
                         <div class="top-box"></#if>
                         <div class="col_1_of_3 span_1_of_3">
-                            <a href='/good/${good.id}?page=${currentPage}&limit=${limit}&sorttype=${sorttype}&dir=${dir}&brands=${brands}&costs=${costs}'>
-                                <div class="inner_content clearfix">
-                                    <div class="product_image">
-                                        <img src="${good.image}" alt=""/>
-                                    </div>
-                                    <div class="price">
-                                        <div class="cart-left">
-                                            <p class="title">${good.name}</p>
-
-                                            <div class="price1">
-                                                <span class="actual">${good.price} руб.</span>
-                                            </div>
-                                        </div>
-                                        <a class="cart-right button js_addToCart" data-id="${good.id}" href="/cart"></a>
-
-                                        <#--<div class="cart-right" ></div>-->
-                                        <div class="clear"></div>
-                                    </div>
-                                </div>
-                            </a>
+                            <@goodView good=good/>
                         </div>
                         <#if (good_index+1)%3==0>
                             <div class="clear"></div></div></#if>
@@ -66,7 +49,6 @@
         <#include "components/catalogFilter.ftl">
         <div class="clear"></div>
     </div>
-</div>
 </div>
 <script src="/resources/js/jquery.easydropdown.js"></script>
 <div class="clear"></div>

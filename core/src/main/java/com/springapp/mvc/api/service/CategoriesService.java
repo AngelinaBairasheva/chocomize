@@ -1,6 +1,6 @@
 package com.springapp.mvc.api.service;
 
-import com.springapp.mvc.api.domain.Categories;
+import com.springapp.mvc.api.domain.Category;
 import com.springapp.mvc.api.repository.CategoriesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,39 +15,39 @@ public class CategoriesService {
     private CategoriesRepository categoriesRepository;
 
     @Transactional
-    public List<Categories> getAllCategories() {
+    public List<Category> getAllCategories() {
         return categoriesRepository.getAllCategories();
     }
 
     @Transactional
-    public void addCategory(Categories categories) {
-        categoriesRepository.addCategory(categories);
+    public void addCategory(Category category) {
+        categoriesRepository.addCategory(category);
     }
 
     @Transactional
-    public void updateCategory(Categories categories) {
-        categoriesRepository.updateCategory(categories);
+    public void updateCategory(Category category) {
+        categoriesRepository.updateCategory(category);
     }
 
     @Transactional
-    public List<Categories> getRootCategories() {
+    public List<Category> getRootCategories() {
         return categoriesRepository.getRootCategories();
     }
     @Transactional
-    public List<Categories> getEndedCategories() {
+    public List<Category> getEndedCategories() {
         return categoriesRepository.getEndedCategories();
     }
     @Transactional
-    public Categories getCategoryById(Long id) {
+    public Category getCategoryById(Long id) {
         return categoriesRepository.getCategoryById(id);
     }
 
     @Transactional
-    public void deleteCategory(Categories categories) {
-        categoriesRepository.deleteCategory(categories);
+    public void deleteCategory(Category category) {
+        categoriesRepository.deleteCategory(category);
     }
     @Transactional
-    public Categories getCategoryByName(String name) {
+    public Category getCategoryByName(String name) {
         return categoriesRepository.getCategoryByName(name);
     }
 }
